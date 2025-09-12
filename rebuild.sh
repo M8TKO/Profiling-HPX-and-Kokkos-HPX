@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+set -euo pipefail
+clear
+
+SCRIPT_PATH="$(readlink -f "$0")"
+SOURCEDIR="$(dirname "$SCRIPT_PATH")"
+TARGET="$(basename "$SCRIPT_PATH" .sh)"
+
+HPX_PREFIX="$HOME/hpx-gcc11-nordtsc"
+CUDA_PREFIX="/usr/local/cuda-13.0"
+BOOST_ROOT="/home/petricic1/spack/opt/spack/linux-skylake/boost-1.74.0-xhyvxpzunv4gdvj7glc66e2uqdpf2xud"
+
+FC_BASE="$HOME/.fc"
+STAGE1="$SOURCEDIR/build/${TARGET}/fc_bootstrap"
+BUILDDIR="$SOURCEDIR/build/${TARGET}/cuda"
+
+export NVCC_WRAPPER_DEFAULT_COMPILER=/usr/bin/g++
+export BOOST_ROOT
+export PATH="$CUDA_PREFIX/bin:$PATH"
+export LD_LIBRARY_PATH="$CUDA_PREFIX/lib64:$BOOST_ROOT/lib:${LD_LIBRARY_PATH:-}"
+unset CC CXX CPATH CPLUS_INCLUDE_PATH INCLUDE
+
+rm -rf "$STAGE1" "$BUILDDIR"
+mkdir -p "$STAGE1" "$FC_BASE"
+
+cmake -S "$SOURCEDIR" -B "$STAGE1" \
+  -DFETCHCONTENT_BASE_DIR="$FC_BASE" \
+  -DFETCHCONTENT_UPDATES_DISCONNECTED=OFF \
+  -DHPX_DIR="$HPX_PREFIX/lib/cmake/HPX" \
+  -DCMAKE_PREFIX_PATH="$HPX_PREFIX;$BOOST_ROOT" \
+  -DBOOST_ROOT="$BOOST_ROOT" \
+  -DBUILD_TESTING=OFF
+
+WRAPPER="$FC_BASE/kokkos-src/bin/nvcc_wrapper"
+
+
+cmake --fresh -S "$SOURCEDIR" -B "$BUILDDIR" "$@" \
+  -DCMAKE_BUILD_TYPE=Debug \
+  -DFETCHCONTENT_BASE_DIR="$FC_BASE" \
+  -DFETCHCONTENT_UPDATES_DISCONNECTED=OFF \
+  -DHPX_DIR="$HPX_PREFIX/lib/cmake/HPX" \
+  -DCMAKE_PREFIX_PATH="$HPX_PREFIX;$BOOST_ROOT" \
+  -DBOOST_ROOT="$BOOST_ROOT" \
+  -DBUILD_TESTING=OFF \
+  -DCMAKE_CXX_COMPILER="$WRAPPER" \
+  -DCMAKE_CUDA_COMPILER="$CUDA_PREFIX/bin/nvcc" \
+  -DCUDAToolkit_ROOT="$CUDA_PREFIX" \
+  -DKokkos_ENABLE_CUDA=ON \
+  -DKokkos_ENABLE_SERIAL=ON \
+  -DKokkos_ENABLE_HPX=ON \
+  -DKokkos_ARCH_AMPERE86=ON \
+  -DKokkos_ENABLE_CUDA_LAMBDA=ON \
+  -DKokkos_ENABLE_CUDA_GRAPH=OFF \
+  -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+  -DCMAKE_CXX_FLAGS="-isystem $BOOST_ROOT/include -w"
+
+cmake --build "$BUILDDIR" -j16
