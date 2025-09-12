@@ -1,7 +1,7 @@
 ## GDB Debugging Session: HPX Thread Creation
 
 I ran `HPX.cpp` - very simple pure HPX program and profiled it to examine thread spawning. 
-`nsys` showed 7 `pthread_create` calls and I ran it with `--hpx:threads 2`.
+`nsys` showed 7 `pthread_create` calls and I ran it with `--hpx:threads 2`. Also `gdb` showed 7 calls to `pthread_create`.
 
 ### Setup and Execution
 
