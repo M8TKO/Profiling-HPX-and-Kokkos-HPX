@@ -43,8 +43,7 @@ cmake --fresh -S "$SOURCEDIR" -B "$BUILDDIR" "$@" \
   -DBOOST_ROOT="$BOOST_ROOT" \
   -DBUILD_TESTING=OFF \
   -DKokkos_ENABLE_HPX=ON \
-  -DKokkos_ENABLE_CUDA=OFF \
-  -DKokkos_ENABLE_SERIAL=OFF \
+  -DKokkos_ENABLE_SERIAL=ON \
   -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
   -DCMAKE_CXX_FLAGS="-isystem $BOOST_ROOT/include -w"
 # --- MODIFIED: Removed all CUDA-specific CMake variables ---
