@@ -3,7 +3,7 @@ Breakpoint 1 (pthread_create) pending.
 [Thread debugging using libthread_db enabled]
 Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 
---- pthread_create called from: ---
+1 ---  pthread_create called from: ---
 #0  __pthread_create_2_1 (newthread=0x7fffffffbea8, attr=0x0, start_routine=0x7ffff6ee1210, arg=0x555555736190) at ./nptl/pthread_create.c:631
 #1  0x00007ffff6ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
 #2  0x00007ffff7363e83 in hpx::util::io_service_pool::run_locked(unsigned long, bool, hpx::util::barrier*) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
@@ -23,7 +23,7 @@ Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 #16 0x000055555556d1e3 in main (argc=3, argv=0x7fffffffcf48) at /home/petricic1/Desktop/JSC/Learning/Week5/src/KokkosHPXBackend.cpp:8
 [New Thread 0x7ffff65ff6c0 (LWP 1034601)]
 
---- pthread_create called from: ---
+2 --- pthread_create called from: ---
 #0  __pthread_create_2_1 (newthread=0x7fffffffbea8, attr=0x0, start_routine=0x7ffff6ee1210, arg=0x5555557414e0) at ./nptl/pthread_create.c:631
 #1  0x00007ffff6ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
 #2  0x00007ffff7363e83 in hpx::util::io_service_pool::run_locked(unsigned long, bool, hpx::util::barrier*) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
@@ -43,7 +43,7 @@ Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 #16 0x000055555556d1e3 in main (argc=3, argv=0x7fffffffcf48) at /home/petricic1/Desktop/JSC/Learning/Week5/src/KokkosHPXBackend.cpp:8
 [New Thread 0x7ffff5dfe6c0 (LWP 1034602)]
 
---- pthread_create called from: ---
+3 --- pthread_create called from: ---
 #0  __pthread_create_2_1 (newthread=0x7fffffffbc48, attr=0x0, start_routine=0x7ffff6ee1210, arg=0x5555557315c0) at ./nptl/pthread_create.c:631
 #1  0x00007ffff6ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
 #2  0x00007ffff7363e83 in hpx::util::io_service_pool::run_locked(unsigned long, bool, hpx::util::barrier*) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
@@ -64,7 +64,7 @@ Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 #17 0x000055555556d1e3 in main (argc=3, argv=0x7fffffffcf48) at /home/petricic1/Desktop/JSC/Learning/Week5/src/KokkosHPXBackend.cpp:8
 [New Thread 0x7ffff55fd6c0 (LWP 1034603)]
 
---- pthread_create called from: ---
+4 --- pthread_create called from: ---
 #0  __pthread_create_2_1 (newthread=0x7fffffffbc48, attr=0x0, start_routine=0x7ffff6ee1210, arg=0x555555728c30) at ./nptl/pthread_create.c:631
 #1  0x00007ffff6ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
 #2  0x00007ffff7363e83 in hpx::util::io_service_pool::run_locked(unsigned long, bool, hpx::util::barrier*) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
@@ -85,7 +85,7 @@ Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 #17 0x000055555556d1e3 in main (argc=3, argv=0x7fffffffcf48) at /home/petricic1/Desktop/JSC/Learning/Week5/src/KokkosHPXBackend.cpp:8
 [New Thread 0x7ffff4dfc6c0 (LWP 1034604)]
 
---- pthread_create called from: ---
+5 --- pthread_create called from: ---
 #0  __pthread_create_2_1 (newthread=0x7fffffffb9a0, attr=0x0, start_routine=0x7ffff6ee1210, arg=0x555555763220) at ./nptl/pthread_create.c:631
 #1  0x00007ffff6ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
 #2  0x00007ffff741f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
@@ -106,7 +106,7 @@ Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 #17 0x000055555556d1e3 in main (argc=3, argv=0x7fffffffcf48) at /home/petricic1/Desktop/JSC/Learning/Week5/src/KokkosHPXBackend.cpp:8
 [New Thread 0x7fffe7fff6c0 (LWP 1034605)]
 
---- pthread_create called from: ---
+6 --- pthread_create called from: ---
 #0  __pthread_create_2_1 (newthread=0x7fffffffb9a0, attr=0x0, start_routine=0x7ffff6ee1210, arg=0x55555570bd50) at ./nptl/pthread_create.c:631
 #1  0x00007ffff6ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
 #2  0x00007ffff741f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
@@ -127,7 +127,7 @@ Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 #17 0x000055555556d1e3 in main (argc=3, argv=0x7fffffffcf48) at /home/petricic1/Desktop/JSC/Learning/Week5/src/KokkosHPXBackend.cpp:8
 [New Thread 0x7fffe77fe6c0 (LWP 1034606)]
 
---- pthread_create called from: ---
+7 --- pthread_create called from: ---
 #0  __pthread_create_2_1 (newthread=0x7fffffffb9a0, attr=0x0, start_routine=0x7ffff6ee1210, arg=0x55555570bf30) at ./nptl/pthread_create.c:631
 #1  0x00007ffff6ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
 #2  0x00007ffff741f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
@@ -148,7 +148,7 @@ Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 #17 0x000055555556d1e3 in main (argc=3, argv=0x7fffffffcf48) at /home/petricic1/Desktop/JSC/Learning/Week5/src/KokkosHPXBackend.cpp:8
 [New Thread 0x7fffe6ffd6c0 (LWP 1034607)]
 
---- pthread_create called from: ---
+8 --- pthread_create called from: ---
 #0  __pthread_create_2_1 (newthread=0x7fffffffb9a0, attr=0x0, start_routine=0x7ffff6ee1210, arg=0x55555575d2d0) at ./nptl/pthread_create.c:631
 #1  0x00007ffff6ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
 #2  0x00007ffff741f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
@@ -169,7 +169,7 @@ Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 #17 0x000055555556d1e3 in main (argc=3, argv=0x7fffffffcf48) at /home/petricic1/Desktop/JSC/Learning/Week5/src/KokkosHPXBackend.cpp:8
 [New Thread 0x7fffe67fc6c0 (LWP 1034608)]
 
---- pthread_create called from: ---
+9 --- pthread_create called from: ---
 #0  __pthread_create_2_1 (newthread=0x7fffffffb9a0, attr=0x0, start_routine=0x7ffff6ee1210, arg=0x55555575d500) at ./nptl/pthread_create.c:631
 #1  0x00007ffff6ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
 #2  0x00007ffff741f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
@@ -190,7 +190,7 @@ Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 #17 0x000055555556d1e3 in main (argc=3, argv=0x7fffffffcf48) at /home/petricic1/Desktop/JSC/Learning/Week5/src/KokkosHPXBackend.cpp:8
 [New Thread 0x7fffe5ffb6c0 (LWP 1034609)]
 
---- pthread_create called from: ---
+10 --- pthread_create called from: ---
 #0  __pthread_create_2_1 (newthread=0x7fffffffb9a0, attr=0x0, start_routine=0x7ffff6ee1210, arg=0x555555754fb0) at ./nptl/pthread_create.c:631
 #1  0x00007ffff6ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
 #2  0x00007ffff741f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
@@ -211,7 +211,7 @@ Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 #17 0x000055555556d1e3 in main (argc=3, argv=0x7fffffffcf48) at /home/petricic1/Desktop/JSC/Learning/Week5/src/KokkosHPXBackend.cpp:8
 [New Thread 0x7fffe57fa6c0 (LWP 1034610)]
 
---- pthread_create called from: ---
+11 --- pthread_create called from: ---
 #0  __pthread_create_2_1 (newthread=0x7fffffffb9a0, attr=0x0, start_routine=0x7ffff6ee1210, arg=0x555555755190) at ./nptl/pthread_create.c:631
 #1  0x00007ffff6ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
 #2  0x00007ffff741f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
@@ -232,7 +232,7 @@ Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 #17 0x000055555556d1e3 in main (argc=3, argv=0x7fffffffcf48) at /home/petricic1/Desktop/JSC/Learning/Week5/src/KokkosHPXBackend.cpp:8
 [New Thread 0x7fffe4ff96c0 (LWP 1034611)]
 
---- pthread_create called from: ---
+12--- pthread_create called from: ---
 #0  __pthread_create_2_1 (newthread=0x7fffffffb9a0, attr=0x0, start_routine=0x7ffff6ee1210, arg=0x555555755370) at ./nptl/pthread_create.c:631
 #1  0x00007ffff6ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
 #2  0x00007ffff741f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
@@ -253,7 +253,7 @@ Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 #17 0x000055555556d1e3 in main (argc=3, argv=0x7fffffffcf48) at /home/petricic1/Desktop/JSC/Learning/Week5/src/KokkosHPXBackend.cpp:8
 [New Thread 0x7fffc3fff6c0 (LWP 1034612)]
 
---- pthread_create called from: ---
+13--- pthread_create called from: ---
 #0  __pthread_create_2_1 (newthread=0x7fffffffb9a0, attr=0x0, start_routine=0x7ffff6ee1210, arg=0x55555575d4b0) at ./nptl/pthread_create.c:631
 #1  0x00007ffff6ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
 #2  0x00007ffff741f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
@@ -274,7 +274,7 @@ Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 #17 0x000055555556d1e3 in main (argc=3, argv=0x7fffffffcf48) at /home/petricic1/Desktop/JSC/Learning/Week5/src/KokkosHPXBackend.cpp:8
 [New Thread 0x7fffc37fe6c0 (LWP 1034613)]
 
---- pthread_create called from: ---
+14--- pthread_create called from: ---
 #0  __pthread_create_2_1 (newthread=0x7fffffffb9a0, attr=0x0, start_routine=0x7ffff6ee1210, arg=0x5555557556e0) at ./nptl/pthread_create.c:631
 #1  0x00007ffff6ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
 #2  0x00007ffff741f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
@@ -295,7 +295,7 @@ Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 #17 0x000055555556d1e3 in main (argc=3, argv=0x7fffffffcf48) at /home/petricic1/Desktop/JSC/Learning/Week5/src/KokkosHPXBackend.cpp:8
 [New Thread 0x7fffc2ffd6c0 (LWP 1034614)]
 
---- pthread_create called from: ---
+15--- pthread_create called from: ---
 #0  __pthread_create_2_1 (newthread=0x7fffffffb9a0, attr=0x0, start_routine=0x7ffff6ee1210, arg=0x5555557558c0) at ./nptl/pthread_create.c:631
 #1  0x00007ffff6ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
 #2  0x00007ffff741f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
@@ -316,7 +316,7 @@ Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 #17 0x000055555556d1e3 in main (argc=3, argv=0x7fffffffcf48) at /home/petricic1/Desktop/JSC/Learning/Week5/src/KokkosHPXBackend.cpp:8
 [New Thread 0x7fffc27fc6c0 (LWP 1034615)]
 
---- pthread_create called from: ---
+16--- pthread_create called from: ---
 #0  __pthread_create_2_1 (newthread=0x7fffffffb9a0, attr=0x0, start_routine=0x7ffff6ee1210, arg=0x555555755aa0) at ./nptl/pthread_create.c:631
 #1  0x00007ffff6ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
 #2  0x00007ffff741f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
@@ -337,7 +337,7 @@ Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 #17 0x000055555556d1e3 in main (argc=3, argv=0x7fffffffcf48) at /home/petricic1/Desktop/JSC/Learning/Week5/src/KokkosHPXBackend.cpp:8
 [New Thread 0x7fffc1ffb6c0 (LWP 1034616)]
 
---- pthread_create called from: ---
+17--- pthread_create called from: ---
 #0  __pthread_create_2_1 (newthread=0x7fffffffb9a0, attr=0x0, start_routine=0x7ffff6ee1210, arg=0x555555755c80) at ./nptl/pthread_create.c:631
 #1  0x00007ffff6ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
 #2  0x00007ffff741f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
@@ -358,7 +358,7 @@ Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 #17 0x000055555556d1e3 in main (argc=3, argv=0x7fffffffcf48) at /home/petricic1/Desktop/JSC/Learning/Week5/src/KokkosHPXBackend.cpp:8
 [New Thread 0x7fffc17fa6c0 (LWP 1034617)]
 
---- pthread_create called from: ---
+18--- pthread_create called from: ---
 #0  __pthread_create_2_1 (newthread=0x7fffffffb9a0, attr=0x0, start_routine=0x7ffff6ee1210, arg=0x55555575cbb0) at ./nptl/pthread_create.c:631
 #1  0x00007ffff6ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
 #2  0x00007ffff741f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
@@ -379,7 +379,7 @@ Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 #17 0x000055555556d1e3 in main (argc=3, argv=0x7fffffffcf48) at /home/petricic1/Desktop/JSC/Learning/Week5/src/KokkosHPXBackend.cpp:8
 [New Thread 0x7fffc0ff96c0 (LWP 1034618)]
 
---- pthread_create called from: ---
+19--- pthread_create called from: ---
 #0  __pthread_create_2_1 (newthread=0x7fffffffb9a0, attr=0x0, start_routine=0x7ffff6ee1210, arg=0x55555575dc00) at ./nptl/pthread_create.c:631
 #1  0x00007ffff6ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
 #2  0x00007ffff741f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
@@ -400,7 +400,7 @@ Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 #17 0x000055555556d1e3 in main (argc=3, argv=0x7fffffffcf48) at /home/petricic1/Desktop/JSC/Learning/Week5/src/KokkosHPXBackend.cpp:8
 [New Thread 0x7fffa3fff6c0 (LWP 1034619)]
 
---- pthread_create called from: ---
+20--- pthread_create called from: ---
 #0  __pthread_create_2_1 (newthread=0x7fffffffb9a0, attr=0x0, start_routine=0x7ffff6ee1210, arg=0x55555575dde0) at ./nptl/pthread_create.c:631
 #1  0x00007ffff6ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
 #2  0x00007ffff741f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
@@ -421,7 +421,7 @@ Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 #17 0x000055555556d1e3 in main (argc=3, argv=0x7fffffffcf48) at /home/petricic1/Desktop/JSC/Learning/Week5/src/KokkosHPXBackend.cpp:8
 [New Thread 0x7fffa37fe6c0 (LWP 1034620)]
 
---- pthread_create called from: ---
+21--- pthread_create called from: ---
 #0  __pthread_create_2_1 (newthread=0x7fffffffb9a0, attr=0x0, start_routine=0x7ffff6ee1210, arg=0x55555575dfc0) at ./nptl/pthread_create.c:631
 #1  0x00007ffff6ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
 #2  0x00007ffff741f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
@@ -442,7 +442,7 @@ Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 #17 0x000055555556d1e3 in main (argc=3, argv=0x7fffffffcf48) at /home/petricic1/Desktop/JSC/Learning/Week5/src/KokkosHPXBackend.cpp:8
 [New Thread 0x7fffa2ffd6c0 (LWP 1034621)]
 
---- pthread_create called from: ---
+22--- pthread_create called from: ---
 #0  __pthread_create_2_1 (newthread=0x7fffffffb9a0, attr=0x0, start_routine=0x7ffff6ee1210, arg=0x55555575e1a0) at ./nptl/pthread_create.c:631
 #1  0x00007ffff6ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
 #2  0x00007ffff741f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
@@ -463,7 +463,7 @@ Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 #17 0x000055555556d1e3 in main (argc=3, argv=0x7fffffffcf48) at /home/petricic1/Desktop/JSC/Learning/Week5/src/KokkosHPXBackend.cpp:8
 [New Thread 0x7fffa27fc6c0 (LWP 1034622)]
 
---- pthread_create called from: ---
+23--- pthread_create called from: ---
 #0  __pthread_create_2_1 (newthread=0x7fffffffb9a0, attr=0x0, start_routine=0x7ffff6ee1210, arg=0x55555575e380) at ./nptl/pthread_create.c:631
 #1  0x00007ffff6ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
 #2  0x00007ffff741f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
@@ -484,7 +484,7 @@ Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 #17 0x000055555556d1e3 in main (argc=3, argv=0x7fffffffcf48) at /home/petricic1/Desktop/JSC/Learning/Week5/src/KokkosHPXBackend.cpp:8
 [New Thread 0x7fffa1ffb6c0 (LWP 1034623)]
 
---- pthread_create called from: ---
+24--- pthread_create called from: ---
 #0  __pthread_create_2_1 (newthread=0x7fffffffb9a0, attr=0x0, start_routine=0x7ffff6ee1210, arg=0x55555575e560) at ./nptl/pthread_create.c:631
 #1  0x00007ffff6ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
 #2  0x00007ffff741f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
@@ -505,7 +505,7 @@ Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 #17 0x000055555556d1e3 in main (argc=3, argv=0x7fffffffcf48) at /home/petricic1/Desktop/JSC/Learning/Week5/src/KokkosHPXBackend.cpp:8
 [New Thread 0x7fffa17fa6c0 (LWP 1034624)]
 
---- pthread_create called from: ---
+25--- pthread_create called from: ---
 #0  __pthread_create_2_1 (newthread=0x7fffffffc878, attr=0x0, start_routine=0x7ffff6ee1210, arg=0x555555726000) at ./nptl/pthread_create.c:631
 #1  0x00007ffff6ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
 #2  0x00007ffff7bdb72a in hpx::runtime_distributed::wait() () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
