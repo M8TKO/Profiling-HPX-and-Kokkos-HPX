@@ -223,5 +223,5 @@ Something regarding the termination of HPX runtime, I am not really sure what th
 [Inferior 1 (process 885778) exited normally]
 ```
 Not and HPX thread, probably used for the orderly shudown of the whole multi-threaded process.
-- I have tried with different values of `--hpx:threads` and it seems that the formula is  
-number of calls to  `pthread_create = 5 + hpx:threads`.
+- I have tried with different values of `--hpx:threads` and it seems that the formula is:  
+`pthread_create calls = 5 + hpx:threads`.
