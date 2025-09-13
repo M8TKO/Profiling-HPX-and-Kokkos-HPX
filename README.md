@@ -8,7 +8,7 @@ I ran `HPX.cpp` - very simple pure HPX program and profiled it to examine thread
 1.  **Run GDB with Arguments:**
     The executable was started using `gdb` to trace its execution. The `--hpx:threads 2` argument was passed to the HPX application.
     ```bash
-    gdb --args ./build/rebuild/cuda/exec_hpx --hpx:threads 2
+    gdb --args ./build/rebuildHPX/hpx_only/exec_hpx --hpx:threads 2
     ```
 
 2.  **Set Breakpoint:**
@@ -223,3 +223,5 @@ Something regarding the termination of HPX runtime, I am not really sure what th
 [Inferior 1 (process 885778) exited normally]
 ```
 Not and HPX thread, probably used for the orderly shudown of the whole multi-threaded process.
+- I have tried with different values of `--hpx:threads` and it seems that the formula is  
+number of calls to  `pthread_create = 5 + hpx:threads`.
