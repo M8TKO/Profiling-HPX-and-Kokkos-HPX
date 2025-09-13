@@ -39,10 +39,10 @@ $1 = 25
 ```
 
 # Looking at the backtraces from each call
-Instead of using `gdb` in the command line, I made a helper file `src/trace_pthreads.gdb`
+Instead of using `gdb` in the command line, I made a helper file `src/trace_pthreads.gdb`. Output is `pthread_calls_cor.log`.
 
 
-```
+
 ## Output
 - Total calls to `pthread_create` is `25`. 
 - Backtrace of each thread starts off with a `main` function call. \
