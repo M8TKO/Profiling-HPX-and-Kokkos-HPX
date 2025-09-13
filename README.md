@@ -72,3 +72,5 @@ vs
  - After this there are no more `hpx::util::io_service_pool` calls.
  - Backtraces of threads `5` to `24` are the same except the final call to `pthreads_create` when the `arg=` is different.
  - If these are the worker threads, there is `24 - 5 + 1 = 20` of them which is the exact number of cores on my workstation. Hyperthreading would bump up that number to `28`. If we ignore the Kokkos part of all these backtraces, calls differ a bit from the backtraces HPX makes by itself.
+
+ - From what I can tell so far, Kokkos with HPX backend does not get influenced by setting the value of `--hpx:threads`
