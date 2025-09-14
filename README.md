@@ -225,3 +225,18 @@ Something regarding the termination of HPX runtime, I am not really sure what th
 Not and HPX thread, probably used for the orderly shudown of the whole multi-threaded process.
 - I have tried with different values of `--hpx:threads` and it seems that the formula is:  
 `pthread_create calls = 5 + hpx:threads`.
+
+
+Here you should take a look at **KokkosBackendHPX** branch as well, what follows are the comments on why the backtraces differ. 
+
+### Suspected Reason for Different HPX Initialization Paths
+
+Based on the differing backtraces, it appears that standalone HPX and Kokkos with the HPX backend are initializing two different versions of the HPX runtime.
+
+*   **Standalone HPX:** The backtrace (`hpx::runtime::start` in `libhpx_core.so`) suggests it's loading a minimal **console runtime**, which seems logical for a single-node application. It likely includes only the essential features for on-node parallelism, such as the thread scheduler and local synchronization.
+
+*   **Kokkos with HPX Backend:** The backtrace (`hpx::runtime_distributed::start` in `libhpx.so.2`) points to the initialization of the full **distributed runtime**. This version is likely a superset of the console runtime, adding services required for multi-node communication. 
+
+#### Why would Kokkos default to this?
+
+The most plausible reason is that the Kokkos HPX backend is designed with **seamless scalability** as a core principle. By initializing the full distributed runtime by default, even on a single node, it ensures that an application can be scaled up to a multi-node cluster without requiring any code changes. This design choice likely prioritizes this "portability of scale" over a minimal startup, ensuring that the necessary distributed software infrastructure is always available - local and remote operations are syntactically and semantically the same.
