@@ -41,3 +41,12 @@ target_link_libraries(exec_hpx
     HPX::wrap_main
 )
 
+add_executable(exec_HPXvsMP src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp)
+target_compile_features(exec_HPXvsMP PRIVATE cxx_std_20)
+target_link_libraries(exec_HPXvsMP
+  PRIVATE
+    HPX::hpx
+    HPX::wrap_main
+    Kokkos::kokkos
+)
+

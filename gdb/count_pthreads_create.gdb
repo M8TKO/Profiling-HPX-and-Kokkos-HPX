@@ -14,4 +14,4 @@ run
 print $count
 quit
 
-# Run with: gdb -x gdb/count_pthreads_create.gdb --args ./build/rebuildHPX/hpx_only/exec_hpx --hpx:threads 3
+# Run with: gdb -x gdb/count_pthreads_create.gdb --args ./build/rebuildHPXvsMP/cuda/exec_HPXvsMP --hpx:threads 2
