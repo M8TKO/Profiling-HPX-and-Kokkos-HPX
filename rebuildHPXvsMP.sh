@@ -55,4 +55,4 @@ cmake --fresh -S "$SOURCEDIR" -B "$BUILDDIR" "$@" \
   -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
   -DCMAKE_CXX_FLAGS="-isystem $BOOST_ROOT/include -w"
 
-cmake --build "$BUILDDIR" -j16
+cmake --build "$BUILDDIR" -j20

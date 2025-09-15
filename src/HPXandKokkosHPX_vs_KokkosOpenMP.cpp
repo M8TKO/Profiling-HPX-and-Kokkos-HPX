@@ -4,6 +4,7 @@
 #include <Kokkos_Core.hpp>
 #include <iostream>
 #include <cmath>
+#include <fstream>
 #include <vector>
 
 using HostSpace = Kokkos::DefaultHostExecutionSpace;
@@ -16,8 +17,8 @@ void process_kernel_A(Kokkos::View<double*, HostSpace> data, int N) {
         }
         data(i) = temp_val;
     });
+    std::cout << "Fencing of process A" << std::endl;
     Kokkos::fence();
-    std::cout << "Process Kernel A complete." << std::endl;
 }
 
 void process_kernel_B(Kokkos::View<double*, HostSpace> data, int N) {
@@ -28,8 +29,8 @@ void process_kernel_B(Kokkos::View<double*, HostSpace> data, int N) {
         }
         data(i) = temp_val;
     });
+    std::cout << "Fencing of process B" << std::endl;
     Kokkos::fence();
-    std::cout << "Process Kernel B complete." << std::endl;
 }
 
 void process_kernel_C(Kokkos::View<double*, HostSpace> data, int N) {
@@ -40,26 +41,27 @@ void process_kernel_C(Kokkos::View<double*, HostSpace> data, int N) {
         }
         data(i) = temp_val;
     });
+    std::cout << "Fencing of process C" << std::endl;
     Kokkos::fence();
-    std::cout << "Process Kernel C complete." << std::endl;
 }
 
 int hpx_main(int argc, char* argv[]) {
-
-
-
+    Kokkos::initialize(argc, argv);
     std::cout << "Running on: " << HostSpace::name() << "\n";
-    {
-        const int N = 1e7;
-        const int num_futures = 50;
+
+    std::ofstream outfile("results.txt");
+    outfile << "ExecutionSpace: " << HostSpace::name() << std::endl;
+
+    for (int num_futures = 2; num_futures <= 50; ++num_futures) {
+        const int N = 1e3;
         Kokkos::Timer timer;
 
         std::vector<hpx::future<void>> futures;
+        futures.reserve(num_futures);
         for (int i = 0; i < num_futures; i++) {
             Kokkos::View<double*, HostSpace> private_data("private_data_" + std::to_string(i), N);
 
-            switch (i % 3)
-            {
+            switch (i % 3) {
             case 0:
                 futures.push_back(hpx::async(process_kernel_A, private_data, N));
                 break;
@@ -76,20 +78,16 @@ int hpx_main(int argc, char* argv[]) {
         hpx::wait_all(futures);
 
         double time = timer.seconds();
-        std::cout << "All kernels running in parallel took " << time << " seconds." << std::endl;
+        std::cout << "Iteration with " << num_futures << " futures took " << time << " seconds." << std::endl;
+        outfile << num_futures << ", " << time << std::endl;
     }
+    
+    outfile.close();
     Kokkos::finalize();
 
-    if( HostSpace::name() != "HPX" )
-        return hpx::local::finalize();
-    else
-        return 0;
+    return hpx::local::finalize();;
 }
 
 int main(int argc, char* argv[]) {
-    Kokkos::initialize(argc, argv);
-    if( HostSpace::name() != "HPX" )
-        return hpx::local::init(hpx_main, argc, argv);
-    else
-        return hpx_main(argc, argv);
+    return hpx::init(hpx_main, argc, argv);
 }
