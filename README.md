@@ -2,7 +2,6 @@
 
 | Test Scenario | HPX Time (s) | OpenMP Time (s) | **Winner** |
 | :--- | :---: | :---: | :---: |
-| **Sequential Kernels** (Fill, Scatter, Reduce) | 48.66 | 37.41 | **OpenMP** |
 | **10 Concurrent Futures** | 60.89 | 64.62 | **HPX** |
 | **50 Concurrent Futures** | 325.72 | 469.92 | **HPX** |
 
