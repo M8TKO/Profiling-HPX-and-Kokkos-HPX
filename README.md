@@ -75,165 +75,76 @@ xychart-beta
     line "HPX" [0.356, 0.354, 0.386, 0.417, 0.448, 0.480, 0.512, 0.544, 0.576, 0.608, 0.641, 0.672, 0.774, 0.927, 0.949, 1.003, 1.035, 1.077, 1.115, 1.154, 1.201, 1.268, 1.289, 1.318, 1.356, 1.397, 1.425, 1.476, 1.513, 1.557, 1.588, 1.641, 1.702, 1.735, 1.776, 1.794, 1.835, 1.884, 1.904, 1.959, 1.987]
     line "OpenMP" [0.530, 0.929, 1.396, 2.322, 2.667, 3.486, 3.386, 3.849, 3.955, 4.613, 4.239, 4.812, 5.340, 5.266, 5.259, 5.526, 5.580, 5.889, 6.451, 6.584, 6.915, 7.036, 7.159, 7.570, 7.498, 7.508, 8.088, 8.596, 8.451, 8.861, 9.051, 9.321, 9.347, 9.649, 10.211, 9.696, 9.519, 10.456, 10.352, 10.929, 10.870]
 ```
-This is a test for 3 kernels.
 
-./build/rebuildHPXvsMP/cuda/exec_HPXvsMP --hpx:threads=all
-Running on: HPX
-Scatter kernel complete.
-Reduce kernel complete.
-Fill kernel complete.
-Kernels took 48.6561 seconds.
 
-OMP_PROC_BIND=spread OMP_PLACES=threads  ./build/rebuildHPXvsMP/cuda/exec_HPXvsMP 
-Running on: OpenMP
-Reduce kernel complete.
-Scatter kernel complete.
-Fill kernel complete.
-Kernels took 37.4085 seconds.
 
-OMP_PROC_BIND=spread OMP_PLACES=threads  ./build/rebuildHPXvsMP/cuda/exec_HPXvsMP --hpx:threads=all
-Running on: OpenMP
-Scatter kernel complete.
-Reduce kernel complete.
-Fill kernel complete.
-Kernels took 41.8996 seconds.
+For `num_futures = 10` and `N=1e5`, running one CPU kernel and one GPU kernel:
+- if the backend is **OpenMP**, there are 109 `pthread_create` calls
+- if the back is **HPX**, there are  28 `pthread_create` calls
 
-./build/rebuildHPXvsMP/cuda/exec_HPXvsMP --hpx:threads=all
-Running on: HPX
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-All 10 futures launched concurrently.
-Process Kernel A complete.
-All kernels running in parallel took 60.8891 seconds.
+# Analysis of Thread Creation during Program Startup
 
-OMP_PROC_BIND=spread OMP_PLACES=threads  ./build/rebuildHPXvsMP/cuda/exec_HPXvsMP --hpx:threads=all
-Running on: OpenMP
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-All 10 futures launched concurrently.
-Process Kernel C complete.
-Process Kernel A complete.
-All kernels running in parallel took 64.6216 seconds.
+A total of **28** OS-level threads (`pthreads`) were created during the program's lifecycle. These can be grouped into four distinct phases. More details in **pthread_calls_HPXschedulingHPXhostBackendCUDAdeviceBackend.log**
 
-OMP_PROC_BIND=spread OMP_PLACES=threads  ./build/rebuildHPXvsMP/cuda/exec_HPXvsMP --hpx:threads=all
-Running on: OpenMP
-Process Kernel A complete.
-Process Kernel C complete.
-Process Kernel B complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel A complete.
-Process Kernel C complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-All 50 futures launched concurrently.
-Process Kernel C complete.
-Process Kernel B complete.
-Process Kernel A complete.
-All kernels running in parallel took 469.915 seconds.
+-----
 
-OMP_PROC_BIND=spread OMP_PLACES=threads  ./build/rebuildHPXvsMP/cuda/exec_HPXvsMP --hpx:threads=all
-Running on: HPX
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-Process Kernel B complete.
-Process Kernel C complete.
-Process Kernel A complete.
-All 50 futures launched concurrently.
-Process Kernel B complete.
-All kernels running in parallel took 325.724 seconds.
+### Breakdown of Thread Creation Events
+
+  * **HPX Runtime Initialization (Threads 1-4)**
+
+      * These first threads are created by the HPX runtime to manage core services, such as I/O and the main thread manager, during the initial startup phase.
+
+    <!-- end list -->
+
+    ```gdb
+     4--- pthread_create called from: ---
+    #2  hpx::util::io_service_pool::run_locked(...)
+    #3  hpx::util::io_service_pool::run(...)
+    #4  hpx::threads::threadmanager::run()
+    #5  hpx::runtime_distributed::start(...)
+    #17 main(...)
+    ```
+
+  * **HPX Worker Thread Pool (Threads 5-24)**
+
+      * This is the main pool of HPX worker threads. These threads are responsible for executing all the parallel tasks in your application (e.g., `hpx::async` and the Kokkos kernels).
+
+    <!-- end list -->
+
+    ```gdb
+     5--- pthread_create called from: ---
+    #2  hpx::threads::detail::scheduled_thread_pool<...>::add_processing_unit_internal(...)
+    #4  hpx::threads::threadmanager::run()
+    #5  hpx::runtime_distributed::start(...)
+    #17 main(...)
+    ```
+
+  * **CUDA Driver Initialization (Threads 25-27)**
+
+      * The CUDA runtime creates its own internal helper threads when it's initialized by Kokkos. These manage GPU communication and context.
+
+    <!-- end list -->
+
+    ```gdb
+     25--- pthread_create called from: ---
+    #5  cuInit () from /lib/x86_64-linux-gnu/libcuda.so.1
+    #12 cudaGetDeviceCount () from /usr/local/cuda-13.0/lib64/libcudart.so.13
+    #15 Kokkos::Cuda::impl_initialize (...)
+    #21 main (...)
+    ```
+
+  * **HPX Shutdown (Thread 28)**
+
+      * A final thread is created during the finalization phase to help manage the clean shutdown and synchronization of the HPX runtime.
+
+    <!-- end list -->
+
+    ```gdb
+     28--- pthread_create called from: ---
+    #2  hpx::runtime_distributed::wait()
+    #3  hpx::local::stop(...)
+    #4  Kokkos::Experimental::HPX::impl_finalize ()
+    #7  Kokkos::finalize ()
+    #8  hpx_main (...)
+    #9  main (...)
+    ```
