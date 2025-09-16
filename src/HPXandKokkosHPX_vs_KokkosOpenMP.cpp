@@ -22,9 +22,6 @@ void process_kernel_A(Kokkos::View<double*, HostSpace> data, int N) {
     Kokkos::fence();
 }
 
-using HostSpace = Kokkos::DefaultHostExecutionSpace;
-using DeviceSpace = Kokkos::Cuda;
-
 void process_kernel_B(Kokkos::View<double*, HostSpace> host_data, int N) {
     Kokkos::View<double*, DeviceSpace> device_data("device_data_B", N);
 
@@ -61,7 +58,7 @@ int hpx_main(int argc, char* argv[]) {
     std::ofstream outfile("results.txt");
     outfile << "ExecutionSpace: " << HostSpace::name() << std::endl;
     
-    for (int num_futures = 2; num_futures <= 2; ++num_futures) {
+    for (int num_futures = 10; num_futures <= 10; ++num_futures) {
         const int N = 1e5;
         
 
@@ -71,19 +68,12 @@ int hpx_main(int argc, char* argv[]) {
         for (int i = 0; i < num_futures; i++) {
             Kokkos::View<double*, HostSpace> private_data("private_data_" + std::to_string(i), N);
 
-            switch (i % 2) {
-            case 0:
-                futures.push_back(hpx::async(process_kernel_A, private_data, N));
-                break;
-            case 1:
-                futures.push_back(hpx::async(process_kernel_B, private_data, N));
-                break;
-            }
-            hpx::wait_all(futures);
+            futures.push_back(hpx::async(process_kernel_B, private_data, N));
+            //hpx::wait_all(futures);
         }
 
         std::cout << "All " << num_futures << " futures launched concurrently." << std::endl;
-        //hpx::wait_all(futures);
+        hpx::wait_all(futures);
 
         double time = timer.seconds();
         std::cout << "Iteration with " << num_futures << " futures took " << time << " seconds." << std::endl;
