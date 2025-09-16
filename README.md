@@ -82,7 +82,7 @@ For `num_futures = 10` and `N=1e5`, running one CPU kernel and one GPU kernel:
 - if the backend is **OpenMP**, there are 109 `pthread_create` calls
 - if the back is **HPX**, there are  28 `pthread_create` calls
 
-# Analysis of Thread Creation during Program Startup
+# A Possible Interpretation of Thread Creation in HPX backend
 
 A total of **28** OS-level threads (`pthreads`) were created during the program's lifecycle. These can be grouped into four distinct phases. More details in **pthread_calls_HPXschedulingHPXhostBackendCUDAdeviceBackend.log**
 
@@ -152,7 +152,10 @@ A total of **28** OS-level threads (`pthreads`) were created during the program'
 
 -----
 
-# A Possible Interpretation of Thread Creation
+
+
+
+# A Possible Interpretation of Thread Creation in OpenMP backend
 
 A total of **109** OS-level threads (`pthreads`) were created. The significant increase from the previous run **appears to be related to how the OpenMP runtime is handling the nested parallelism** initiated by HPX.
 
