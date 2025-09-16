@@ -1,0 +1,624 @@
+Function "pthread_create" not defined.
+Breakpoint 1 (pthread_create) pending.
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+ 1--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x7fffffffbf88, attr=0x0, start_routine=0x7ffff0ee1210, arg=0x55555582d030) at ./nptl/pthread_create.c:631
+#1  0x00007ffff0ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#2  0x00007ffff7d63e83 in hpx::util::io_service_pool::run_locked(unsigned long, bool, hpx::util::barrier*) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#3  0x00007ffff7d64627 in hpx::util::io_service_pool::run(bool, hpx::util::barrier*) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#4  0x00007ffff17dde3c in hpx::runtime_distributed::start(hpx::function<int (), false> const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#5  0x00007ffff17d5fc0 in hpx::runtime_distributed::start(bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#6  0x00007ffff16a209f in hpx::detail::run_or_start(bool, std::unique_ptr<hpx::runtime, std::default_delete<hpx::runtime> >, hpx::util::command_line_handling&, hpx::move_only_function<void (), false>, hpx::move_only_function<void (), false>) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#7  0x00007ffff16a29bc in hpx::detail::run_or_start(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#8  0x00007ffff16a32c8 in hpx::detail::start_impl(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, char const*, char**) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#9  0x00005555555eb3c1 in hpx::start(decltype(nullptr), int, char**, hpx::init_params const&) (argc=1, argv=0x7fffffffcbe0, params=...) at /home/petricic1/hpx-gcc11-nordtsc/include/hpx/hpx_start_impl.hpp:118
+#10 0x00005555555e85d1 in Kokkos::Experimental::HPX::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/HPX/Kokkos_HPX.cpp:220
+#11 0x000055555561f27a in Kokkos::Impl::ExecSpaceDerived<Kokkos::Experimental::HPX>::initialize (this=0x555555875830, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#12 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#13 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#14 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#15 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#16 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7ffff05ff000 (LWP 1389081)]
+
+ 2--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x7fffffffbf88, attr=0x0, start_routine=0x7ffff0ee1210, arg=0x555555884e70) at ./nptl/pthread_create.c:631
+#1  0x00007ffff0ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#2  0x00007ffff7d63e83 in hpx::util::io_service_pool::run_locked(unsigned long, bool, hpx::util::barrier*) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#3  0x00007ffff7d64627 in hpx::util::io_service_pool::run(bool, hpx::util::barrier*) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#4  0x00007ffff17dde3c in hpx::runtime_distributed::start(hpx::function<int (), false> const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#5  0x00007ffff17d5fc0 in hpx::runtime_distributed::start(bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#6  0x00007ffff16a209f in hpx::detail::run_or_start(bool, std::unique_ptr<hpx::runtime, std::default_delete<hpx::runtime> >, hpx::util::command_line_handling&, hpx::move_only_function<void (), false>, hpx::move_only_function<void (), false>) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#7  0x00007ffff16a29bc in hpx::detail::run_or_start(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#8  0x00007ffff16a32c8 in hpx::detail::start_impl(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, char const*, char**) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#9  0x00005555555eb3c1 in hpx::start(decltype(nullptr), int, char**, hpx::init_params const&) (argc=1, argv=0x7fffffffcbe0, params=...) at /home/petricic1/hpx-gcc11-nordtsc/include/hpx/hpx_start_impl.hpp:118
+#10 0x00005555555e85d1 in Kokkos::Experimental::HPX::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/HPX/Kokkos_HPX.cpp:220
+#11 0x000055555561f27a in Kokkos::Impl::ExecSpaceDerived<Kokkos::Experimental::HPX>::initialize (this=0x555555875830, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#12 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#13 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#14 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#15 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#16 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fffefdfe000 (LWP 1389082)]
+
+ 3--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x7fffffffbd28, attr=0x0, start_routine=0x7ffff0ee1210, arg=0x555555889fc0) at ./nptl/pthread_create.c:631
+#1  0x00007ffff0ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#2  0x00007ffff7d63e83 in hpx::util::io_service_pool::run_locked(unsigned long, bool, hpx::util::barrier*) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#3  0x00007ffff7d64627 in hpx::util::io_service_pool::run(bool, hpx::util::barrier*) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#4  0x00007ffff7e685e9 in hpx::threads::threadmanager::run() const () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#5  0x00007ffff17ddf1e in hpx::runtime_distributed::start(hpx::function<int (), false> const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#6  0x00007ffff17d5fc0 in hpx::runtime_distributed::start(bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#7  0x00007ffff16a209f in hpx::detail::run_or_start(bool, std::unique_ptr<hpx::runtime, std::default_delete<hpx::runtime> >, hpx::util::command_line_handling&, hpx::move_only_function<void (), false>, hpx::move_only_function<void (), false>) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#8  0x00007ffff16a29bc in hpx::detail::run_or_start(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#9  0x00007ffff16a32c8 in hpx::detail::start_impl(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, char const*, char**) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#10 0x00005555555eb3c1 in hpx::start(decltype(nullptr), int, char**, hpx::init_params const&) (argc=1, argv=0x7fffffffcbe0, params=...) at /home/petricic1/hpx-gcc11-nordtsc/include/hpx/hpx_start_impl.hpp:118
+#11 0x00005555555e85d1 in Kokkos::Experimental::HPX::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/HPX/Kokkos_HPX.cpp:220
+#12 0x000055555561f27a in Kokkos::Impl::ExecSpaceDerived<Kokkos::Experimental::HPX>::initialize (this=0x555555875830, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#13 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#14 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#15 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#16 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#17 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fffef5fd000 (LWP 1389083)]
+
+ 4--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x7fffffffbd28, attr=0x0, start_routine=0x7ffff0ee1210, arg=0x555555892e10) at ./nptl/pthread_create.c:631
+#1  0x00007ffff0ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#2  0x00007ffff7d63e83 in hpx::util::io_service_pool::run_locked(unsigned long, bool, hpx::util::barrier*) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#3  0x00007ffff7d64627 in hpx::util::io_service_pool::run(bool, hpx::util::barrier*) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#4  0x00007ffff7e685e9 in hpx::threads::threadmanager::run() const () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#5  0x00007ffff17ddf1e in hpx::runtime_distributed::start(hpx::function<int (), false> const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#6  0x00007ffff17d5fc0 in hpx::runtime_distributed::start(bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#7  0x00007ffff16a209f in hpx::detail::run_or_start(bool, std::unique_ptr<hpx::runtime, std::default_delete<hpx::runtime> >, hpx::util::command_line_handling&, hpx::move_only_function<void (), false>, hpx::move_only_function<void (), false>) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#8  0x00007ffff16a29bc in hpx::detail::run_or_start(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#9  0x00007ffff16a32c8 in hpx::detail::start_impl(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, char const*, char**) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#10 0x00005555555eb3c1 in hpx::start(decltype(nullptr), int, char**, hpx::init_params const&) (argc=1, argv=0x7fffffffcbe0, params=...) at /home/petricic1/hpx-gcc11-nordtsc/include/hpx/hpx_start_impl.hpp:118
+#11 0x00005555555e85d1 in Kokkos::Experimental::HPX::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/HPX/Kokkos_HPX.cpp:220
+#12 0x000055555561f27a in Kokkos::Impl::ExecSpaceDerived<Kokkos::Experimental::HPX>::initialize (this=0x555555875830, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#13 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#14 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#15 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#16 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#17 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fffeedfc000 (LWP 1389084)]
+
+ 5--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x7fffffffba80, attr=0x0, start_routine=0x7ffff0ee1210, arg=0x5555558a84c0) at ./nptl/pthread_create.c:631
+#1  0x00007ffff0ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#2  0x00007ffff7e1f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#3  0x00007ffff7e2c9dc in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::run(std::unique_lock<std::mutex>&, unsigned long) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#4  0x00007ffff7e68651 in hpx::threads::threadmanager::run() const () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#5  0x00007ffff17ddf1e in hpx::runtime_distributed::start(hpx::function<int (), false> const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#6  0x00007ffff17d5fc0 in hpx::runtime_distributed::start(bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#7  0x00007ffff16a209f in hpx::detail::run_or_start(bool, std::unique_ptr<hpx::runtime, std::default_delete<hpx::runtime> >, hpx::util::command_line_handling&, hpx::move_only_function<void (), false>, hpx::move_only_function<void (), false>) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#8  0x00007ffff16a29bc in hpx::detail::run_or_start(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#9  0x00007ffff16a32c8 in hpx::detail::start_impl(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, char const*, char**) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#10 0x00005555555eb3c1 in hpx::start(decltype(nullptr), int, char**, hpx::init_params const&) (argc=1, argv=0x7fffffffcbe0, params=...) at /home/petricic1/hpx-gcc11-nordtsc/include/hpx/hpx_start_impl.hpp:118
+#11 0x00005555555e85d1 in Kokkos::Experimental::HPX::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/HPX/Kokkos_HPX.cpp:220
+#12 0x000055555561f27a in Kokkos::Impl::ExecSpaceDerived<Kokkos::Experimental::HPX>::initialize (this=0x555555875830, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#13 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#14 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#15 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#16 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#17 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fffee5fb000 (LWP 1389085)]
+
+ 6--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x7fffffffba80, attr=0x0, start_routine=0x7ffff0ee1210, arg=0x555555856ff0) at ./nptl/pthread_create.c:631
+#1  0x00007ffff0ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#2  0x00007ffff7e1f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#3  0x00007ffff7e2c9dc in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::run(std::unique_lock<std::mutex>&, unsigned long) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#4  0x00007ffff7e68651 in hpx::threads::threadmanager::run() const () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#5  0x00007ffff17ddf1e in hpx::runtime_distributed::start(hpx::function<int (), false> const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#6  0x00007ffff17d5fc0 in hpx::runtime_distributed::start(bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#7  0x00007ffff16a209f in hpx::detail::run_or_start(bool, std::unique_ptr<hpx::runtime, std::default_delete<hpx::runtime> >, hpx::util::command_line_handling&, hpx::move_only_function<void (), false>, hpx::move_only_function<void (), false>) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#8  0x00007ffff16a29bc in hpx::detail::run_or_start(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#9  0x00007ffff16a32c8 in hpx::detail::start_impl(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, char const*, char**) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#10 0x00005555555eb3c1 in hpx::start(decltype(nullptr), int, char**, hpx::init_params const&) (argc=1, argv=0x7fffffffcbe0, params=...) at /home/petricic1/hpx-gcc11-nordtsc/include/hpx/hpx_start_impl.hpp:118
+#11 0x00005555555e85d1 in Kokkos::Experimental::HPX::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/HPX/Kokkos_HPX.cpp:220
+#12 0x000055555561f27a in Kokkos::Impl::ExecSpaceDerived<Kokkos::Experimental::HPX>::initialize (this=0x555555875830, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#13 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#14 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#15 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#16 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#17 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fffeddfa000 (LWP 1389086)]
+
+ 7--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x7fffffffba80, attr=0x0, start_routine=0x7ffff0ee1210, arg=0x5555558571e0) at ./nptl/pthread_create.c:631
+#1  0x00007ffff0ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#2  0x00007ffff7e1f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#3  0x00007ffff7e2c9dc in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::run(std::unique_lock<std::mutex>&, unsigned long) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#4  0x00007ffff7e68651 in hpx::threads::threadmanager::run() const () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#5  0x00007ffff17ddf1e in hpx::runtime_distributed::start(hpx::function<int (), false> const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#6  0x00007ffff17d5fc0 in hpx::runtime_distributed::start(bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#7  0x00007ffff16a209f in hpx::detail::run_or_start(bool, std::unique_ptr<hpx::runtime, std::default_delete<hpx::runtime> >, hpx::util::command_line_handling&, hpx::move_only_function<void (), false>, hpx::move_only_function<void (), false>) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#8  0x00007ffff16a29bc in hpx::detail::run_or_start(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#9  0x00007ffff16a32c8 in hpx::detail::start_impl(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, char const*, char**) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#10 0x00005555555eb3c1 in hpx::start(decltype(nullptr), int, char**, hpx::init_params const&) (argc=1, argv=0x7fffffffcbe0, params=...) at /home/petricic1/hpx-gcc11-nordtsc/include/hpx/hpx_start_impl.hpp:118
+#11 0x00005555555e85d1 in Kokkos::Experimental::HPX::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/HPX/Kokkos_HPX.cpp:220
+#12 0x000055555561f27a in Kokkos::Impl::ExecSpaceDerived<Kokkos::Experimental::HPX>::initialize (this=0x555555875830, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#13 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#14 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#15 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#16 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#17 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fffed5f9000 (LWP 1389087)]
+
+ 8--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x7fffffffba80, attr=0x0, start_routine=0x7ffff0ee1210, arg=0x5555558a66e0) at ./nptl/pthread_create.c:631
+#1  0x00007ffff0ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#2  0x00007ffff7e1f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#3  0x00007ffff7e2c9dc in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::run(std::unique_lock<std::mutex>&, unsigned long) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#4  0x00007ffff7e68651 in hpx::threads::threadmanager::run() const () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#5  0x00007ffff17ddf1e in hpx::runtime_distributed::start(hpx::function<int (), false> const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#6  0x00007ffff17d5fc0 in hpx::runtime_distributed::start(bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#7  0x00007ffff16a209f in hpx::detail::run_or_start(bool, std::unique_ptr<hpx::runtime, std::default_delete<hpx::runtime> >, hpx::util::command_line_handling&, hpx::move_only_function<void (), false>, hpx::move_only_function<void (), false>) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#8  0x00007ffff16a29bc in hpx::detail::run_or_start(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#9  0x00007ffff16a32c8 in hpx::detail::start_impl(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, char const*, char**) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#10 0x00005555555eb3c1 in hpx::start(decltype(nullptr), int, char**, hpx::init_params const&) (argc=1, argv=0x7fffffffcbe0, params=...) at /home/petricic1/hpx-gcc11-nordtsc/include/hpx/hpx_start_impl.hpp:118
+#11 0x00005555555e85d1 in Kokkos::Experimental::HPX::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/HPX/Kokkos_HPX.cpp:220
+#12 0x000055555561f27a in Kokkos::Impl::ExecSpaceDerived<Kokkos::Experimental::HPX>::initialize (this=0x555555875830, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#13 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#14 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#15 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#16 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#17 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fffecdf8000 (LWP 1389088)]
+
+ 9--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x7fffffffba80, attr=0x0, start_routine=0x7ffff0ee1210, arg=0x5555558a6920) at ./nptl/pthread_create.c:631
+#1  0x00007ffff0ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#2  0x00007ffff7e1f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#3  0x00007ffff7e2c9dc in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::run(std::unique_lock<std::mutex>&, unsigned long) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#4  0x00007ffff7e68651 in hpx::threads::threadmanager::run() const () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#5  0x00007ffff17ddf1e in hpx::runtime_distributed::start(hpx::function<int (), false> const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#6  0x00007ffff17d5fc0 in hpx::runtime_distributed::start(bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#7  0x00007ffff16a209f in hpx::detail::run_or_start(bool, std::unique_ptr<hpx::runtime, std::default_delete<hpx::runtime> >, hpx::util::command_line_handling&, hpx::move_only_function<void (), false>, hpx::move_only_function<void (), false>) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#8  0x00007ffff16a29bc in hpx::detail::run_or_start(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#9  0x00007ffff16a32c8 in hpx::detail::start_impl(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, char const*, char**) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#10 0x00005555555eb3c1 in hpx::start(decltype(nullptr), int, char**, hpx::init_params const&) (argc=1, argv=0x7fffffffcbe0, params=...) at /home/petricic1/hpx-gcc11-nordtsc/include/hpx/hpx_start_impl.hpp:118
+#11 0x00005555555e85d1 in Kokkos::Experimental::HPX::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/HPX/Kokkos_HPX.cpp:220
+#12 0x000055555561f27a in Kokkos::Impl::ExecSpaceDerived<Kokkos::Experimental::HPX>::initialize (this=0x555555875830, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#13 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#14 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#15 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#16 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#17 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fffcffff000 (LWP 1389089)]
+
+ 10--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x7fffffffba80, attr=0x0, start_routine=0x7ffff0ee1210, arg=0x5555558a6b10) at ./nptl/pthread_create.c:631
+#1  0x00007ffff0ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#2  0x00007ffff7e1f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#3  0x00007ffff7e2c9dc in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::run(std::unique_lock<std::mutex>&, unsigned long) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#4  0x00007ffff7e68651 in hpx::threads::threadmanager::run() const () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#5  0x00007ffff17ddf1e in hpx::runtime_distributed::start(hpx::function<int (), false> const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#6  0x00007ffff17d5fc0 in hpx::runtime_distributed::start(bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#7  0x00007ffff16a209f in hpx::detail::run_or_start(bool, std::unique_ptr<hpx::runtime, std::default_delete<hpx::runtime> >, hpx::util::command_line_handling&, hpx::move_only_function<void (), false>, hpx::move_only_function<void (), false>) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#8  0x00007ffff16a29bc in hpx::detail::run_or_start(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#9  0x00007ffff16a32c8 in hpx::detail::start_impl(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, char const*, char**) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#10 0x00005555555eb3c1 in hpx::start(decltype(nullptr), int, char**, hpx::init_params const&) (argc=1, argv=0x7fffffffcbe0, params=...) at /home/petricic1/hpx-gcc11-nordtsc/include/hpx/hpx_start_impl.hpp:118
+#11 0x00005555555e85d1 in Kokkos::Experimental::HPX::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/HPX/Kokkos_HPX.cpp:220
+#12 0x000055555561f27a in Kokkos::Impl::ExecSpaceDerived<Kokkos::Experimental::HPX>::initialize (this=0x555555875830, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#13 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#14 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#15 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#16 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#17 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fffcf7fe000 (LWP 1389090)]
+
+ 11--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x7fffffffba80, attr=0x0, start_routine=0x7ffff0ee1210, arg=0x5555558a6d00) at ./nptl/pthread_create.c:631
+#1  0x00007ffff0ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#2  0x00007ffff7e1f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#3  0x00007ffff7e2c9dc in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::run(std::unique_lock<std::mutex>&, unsigned long) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#4  0x00007ffff7e68651 in hpx::threads::threadmanager::run() const () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#5  0x00007ffff17ddf1e in hpx::runtime_distributed::start(hpx::function<int (), false> const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#6  0x00007ffff17d5fc0 in hpx::runtime_distributed::start(bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#7  0x00007ffff16a209f in hpx::detail::run_or_start(bool, std::unique_ptr<hpx::runtime, std::default_delete<hpx::runtime> >, hpx::util::command_line_handling&, hpx::move_only_function<void (), false>, hpx::move_only_function<void (), false>) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#8  0x00007ffff16a29bc in hpx::detail::run_or_start(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#9  0x00007ffff16a32c8 in hpx::detail::start_impl(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, char const*, char**) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#10 0x00005555555eb3c1 in hpx::start(decltype(nullptr), int, char**, hpx::init_params const&) (argc=1, argv=0x7fffffffcbe0, params=...) at /home/petricic1/hpx-gcc11-nordtsc/include/hpx/hpx_start_impl.hpp:118
+#11 0x00005555555e85d1 in Kokkos::Experimental::HPX::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/HPX/Kokkos_HPX.cpp:220
+#12 0x000055555561f27a in Kokkos::Impl::ExecSpaceDerived<Kokkos::Experimental::HPX>::initialize (this=0x555555875830, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#13 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#14 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#15 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#16 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#17 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fffceffd000 (LWP 1389091)]
+
+ 12--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x7fffffffba80, attr=0x0, start_routine=0x7ffff0ee1210, arg=0x5555558a6ef0) at ./nptl/pthread_create.c:631
+#1  0x00007ffff0ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#2  0x00007ffff7e1f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#3  0x00007ffff7e2c9dc in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::run(std::unique_lock<std::mutex>&, unsigned long) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#4  0x00007ffff7e68651 in hpx::threads::threadmanager::run() const () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#5  0x00007ffff17ddf1e in hpx::runtime_distributed::start(hpx::function<int (), false> const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#6  0x00007ffff17d5fc0 in hpx::runtime_distributed::start(bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#7  0x00007ffff16a209f in hpx::detail::run_or_start(bool, std::unique_ptr<hpx::runtime, std::default_delete<hpx::runtime> >, hpx::util::command_line_handling&, hpx::move_only_function<void (), false>, hpx::move_only_function<void (), false>) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#8  0x00007ffff16a29bc in hpx::detail::run_or_start(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#9  0x00007ffff16a32c8 in hpx::detail::start_impl(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, char const*, char**) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#10 0x00005555555eb3c1 in hpx::start(decltype(nullptr), int, char**, hpx::init_params const&) (argc=1, argv=0x7fffffffcbe0, params=...) at /home/petricic1/hpx-gcc11-nordtsc/include/hpx/hpx_start_impl.hpp:118
+#11 0x00005555555e85d1 in Kokkos::Experimental::HPX::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/HPX/Kokkos_HPX.cpp:220
+#12 0x000055555561f27a in Kokkos::Impl::ExecSpaceDerived<Kokkos::Experimental::HPX>::initialize (this=0x555555875830, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#13 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#14 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#15 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#16 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#17 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fffce7fc000 (LWP 1389092)]
+
+ 13--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x7fffffffba80, attr=0x0, start_routine=0x7ffff0ee1210, arg=0x5555558a68d0) at ./nptl/pthread_create.c:631
+#1  0x00007ffff0ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#2  0x00007ffff7e1f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#3  0x00007ffff7e2c9dc in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::run(std::unique_lock<std::mutex>&, unsigned long) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#4  0x00007ffff7e68651 in hpx::threads::threadmanager::run() const () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#5  0x00007ffff17ddf1e in hpx::runtime_distributed::start(hpx::function<int (), false> const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#6  0x00007ffff17d5fc0 in hpx::runtime_distributed::start(bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#7  0x00007ffff16a209f in hpx::detail::run_or_start(bool, std::unique_ptr<hpx::runtime, std::default_delete<hpx::runtime> >, hpx::util::command_line_handling&, hpx::move_only_function<void (), false>, hpx::move_only_function<void (), false>) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#8  0x00007ffff16a29bc in hpx::detail::run_or_start(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#9  0x00007ffff16a32c8 in hpx::detail::start_impl(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, char const*, char**) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#10 0x00005555555eb3c1 in hpx::start(decltype(nullptr), int, char**, hpx::init_params const&) (argc=1, argv=0x7fffffffcbe0, params=...) at /home/petricic1/hpx-gcc11-nordtsc/include/hpx/hpx_start_impl.hpp:118
+#11 0x00005555555e85d1 in Kokkos::Experimental::HPX::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/HPX/Kokkos_HPX.cpp:220
+#12 0x000055555561f27a in Kokkos::Impl::ExecSpaceDerived<Kokkos::Experimental::HPX>::initialize (this=0x555555875830, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#13 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#14 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#15 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#16 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#17 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fffcdffb000 (LWP 1389093)]
+
+ 14--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x7fffffffba80, attr=0x0, start_routine=0x7ffff0ee1210, arg=0x5555558a7280) at ./nptl/pthread_create.c:631
+#1  0x00007ffff0ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#2  0x00007ffff7e1f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#3  0x00007ffff7e2c9dc in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::run(std::unique_lock<std::mutex>&, unsigned long) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#4  0x00007ffff7e68651 in hpx::threads::threadmanager::run() const () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#5  0x00007ffff17ddf1e in hpx::runtime_distributed::start(hpx::function<int (), false> const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#6  0x00007ffff17d5fc0 in hpx::runtime_distributed::start(bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#7  0x00007ffff16a209f in hpx::detail::run_or_start(bool, std::unique_ptr<hpx::runtime, std::default_delete<hpx::runtime> >, hpx::util::command_line_handling&, hpx::move_only_function<void (), false>, hpx::move_only_function<void (), false>) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#8  0x00007ffff16a29bc in hpx::detail::run_or_start(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#9  0x00007ffff16a32c8 in hpx::detail::start_impl(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, char const*, char**) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#10 0x00005555555eb3c1 in hpx::start(decltype(nullptr), int, char**, hpx::init_params const&) (argc=1, argv=0x7fffffffcbe0, params=...) at /home/petricic1/hpx-gcc11-nordtsc/include/hpx/hpx_start_impl.hpp:118
+#11 0x00005555555e85d1 in Kokkos::Experimental::HPX::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/HPX/Kokkos_HPX.cpp:220
+#12 0x000055555561f27a in Kokkos::Impl::ExecSpaceDerived<Kokkos::Experimental::HPX>::initialize (this=0x555555875830, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#13 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#14 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#15 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#16 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#17 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fffcd7fa000 (LWP 1389094)]
+
+ 15--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x7fffffffba80, attr=0x0, start_routine=0x7ffff0ee1210, arg=0x5555558a7470) at ./nptl/pthread_create.c:631
+#1  0x00007ffff0ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#2  0x00007ffff7e1f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#3  0x00007ffff7e2c9dc in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::run(std::unique_lock<std::mutex>&, unsigned long) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#4  0x00007ffff7e68651 in hpx::threads::threadmanager::run() const () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#5  0x00007ffff17ddf1e in hpx::runtime_distributed::start(hpx::function<int (), false> const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#6  0x00007ffff17d5fc0 in hpx::runtime_distributed::start(bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#7  0x00007ffff16a209f in hpx::detail::run_or_start(bool, std::unique_ptr<hpx::runtime, std::default_delete<hpx::runtime> >, hpx::util::command_line_handling&, hpx::move_only_function<void (), false>, hpx::move_only_function<void (), false>) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#8  0x00007ffff16a29bc in hpx::detail::run_or_start(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#9  0x00007ffff16a32c8 in hpx::detail::start_impl(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, char const*, char**) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#10 0x00005555555eb3c1 in hpx::start(decltype(nullptr), int, char**, hpx::init_params const&) (argc=1, argv=0x7fffffffcbe0, params=...) at /home/petricic1/hpx-gcc11-nordtsc/include/hpx/hpx_start_impl.hpp:118
+#11 0x00005555555e85d1 in Kokkos::Experimental::HPX::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/HPX/Kokkos_HPX.cpp:220
+#12 0x000055555561f27a in Kokkos::Impl::ExecSpaceDerived<Kokkos::Experimental::HPX>::initialize (this=0x555555875830, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#13 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#14 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#15 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#16 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#17 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fffccff9000 (LWP 1389095)]
+
+ 16--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x7fffffffba80, attr=0x0, start_routine=0x7ffff0ee1210, arg=0x5555558ac060) at ./nptl/pthread_create.c:631
+#1  0x00007ffff0ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#2  0x00007ffff7e1f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#3  0x00007ffff7e2c9dc in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::run(std::unique_lock<std::mutex>&, unsigned long) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#4  0x00007ffff7e68651 in hpx::threads::threadmanager::run() const () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#5  0x00007ffff17ddf1e in hpx::runtime_distributed::start(hpx::function<int (), false> const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#6  0x00007ffff17d5fc0 in hpx::runtime_distributed::start(bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#7  0x00007ffff16a209f in hpx::detail::run_or_start(bool, std::unique_ptr<hpx::runtime, std::default_delete<hpx::runtime> >, hpx::util::command_line_handling&, hpx::move_only_function<void (), false>, hpx::move_only_function<void (), false>) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#8  0x00007ffff16a29bc in hpx::detail::run_or_start(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#9  0x00007ffff16a32c8 in hpx::detail::start_impl(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, char const*, char**) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#10 0x00005555555eb3c1 in hpx::start(decltype(nullptr), int, char**, hpx::init_params const&) (argc=1, argv=0x7fffffffcbe0, params=...) at /home/petricic1/hpx-gcc11-nordtsc/include/hpx/hpx_start_impl.hpp:118
+#11 0x00005555555e85d1 in Kokkos::Experimental::HPX::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/HPX/Kokkos_HPX.cpp:220
+#12 0x000055555561f27a in Kokkos::Impl::ExecSpaceDerived<Kokkos::Experimental::HPX>::initialize (this=0x555555875830, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#13 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#14 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#15 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#16 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#17 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fffabfff000 (LWP 1389096)]
+
+ 17--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x7fffffffba80, attr=0x0, start_routine=0x7ffff0ee1210, arg=0x5555558ac250) at ./nptl/pthread_create.c:631
+#1  0x00007ffff0ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#2  0x00007ffff7e1f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#3  0x00007ffff7e2c9dc in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::run(std::unique_lock<std::mutex>&, unsigned long) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#4  0x00007ffff7e68651 in hpx::threads::threadmanager::run() const () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#5  0x00007ffff17ddf1e in hpx::runtime_distributed::start(hpx::function<int (), false> const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#6  0x00007ffff17d5fc0 in hpx::runtime_distributed::start(bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#7  0x00007ffff16a209f in hpx::detail::run_or_start(bool, std::unique_ptr<hpx::runtime, std::default_delete<hpx::runtime> >, hpx::util::command_line_handling&, hpx::move_only_function<void (), false>, hpx::move_only_function<void (), false>) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#8  0x00007ffff16a29bc in hpx::detail::run_or_start(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#9  0x00007ffff16a32c8 in hpx::detail::start_impl(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, char const*, char**) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#10 0x00005555555eb3c1 in hpx::start(decltype(nullptr), int, char**, hpx::init_params const&) (argc=1, argv=0x7fffffffcbe0, params=...) at /home/petricic1/hpx-gcc11-nordtsc/include/hpx/hpx_start_impl.hpp:118
+#11 0x00005555555e85d1 in Kokkos::Experimental::HPX::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/HPX/Kokkos_HPX.cpp:220
+#12 0x000055555561f27a in Kokkos::Impl::ExecSpaceDerived<Kokkos::Experimental::HPX>::initialize (this=0x555555875830, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#13 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#14 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#15 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#16 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#17 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fffab7fe000 (LWP 1389097)]
+
+ 18--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x7fffffffba80, attr=0x0, start_routine=0x7ffff0ee1210, arg=0x5555558ac440) at ./nptl/pthread_create.c:631
+#1  0x00007ffff0ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#2  0x00007ffff7e1f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#3  0x00007ffff7e2c9dc in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::run(std::unique_lock<std::mutex>&, unsigned long) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#4  0x00007ffff7e68651 in hpx::threads::threadmanager::run() const () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#5  0x00007ffff17ddf1e in hpx::runtime_distributed::start(hpx::function<int (), false> const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#6  0x00007ffff17d5fc0 in hpx::runtime_distributed::start(bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#7  0x00007ffff16a209f in hpx::detail::run_or_start(bool, std::unique_ptr<hpx::runtime, std::default_delete<hpx::runtime> >, hpx::util::command_line_handling&, hpx::move_only_function<void (), false>, hpx::move_only_function<void (), false>) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#8  0x00007ffff16a29bc in hpx::detail::run_or_start(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#9  0x00007ffff16a32c8 in hpx::detail::start_impl(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, char const*, char**) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#10 0x00005555555eb3c1 in hpx::start(decltype(nullptr), int, char**, hpx::init_params const&) (argc=1, argv=0x7fffffffcbe0, params=...) at /home/petricic1/hpx-gcc11-nordtsc/include/hpx/hpx_start_impl.hpp:118
+#11 0x00005555555e85d1 in Kokkos::Experimental::HPX::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/HPX/Kokkos_HPX.cpp:220
+#12 0x000055555561f27a in Kokkos::Impl::ExecSpaceDerived<Kokkos::Experimental::HPX>::initialize (this=0x555555875830, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#13 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#14 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#15 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#16 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#17 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fffaaffd000 (LWP 1389098)]
+
+ 19--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x7fffffffba80, attr=0x0, start_routine=0x7ffff0ee1210, arg=0x5555558ac630) at ./nptl/pthread_create.c:631
+#1  0x00007ffff0ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#2  0x00007ffff7e1f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#3  0x00007ffff7e2c9dc in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::run(std::unique_lock<std::mutex>&, unsigned long) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#4  0x00007ffff7e68651 in hpx::threads::threadmanager::run() const () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#5  0x00007ffff17ddf1e in hpx::runtime_distributed::start(hpx::function<int (), false> const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#6  0x00007ffff17d5fc0 in hpx::runtime_distributed::start(bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#7  0x00007ffff16a209f in hpx::detail::run_or_start(bool, std::unique_ptr<hpx::runtime, std::default_delete<hpx::runtime> >, hpx::util::command_line_handling&, hpx::move_only_function<void (), false>, hpx::move_only_function<void (), false>) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#8  0x00007ffff16a29bc in hpx::detail::run_or_start(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#9  0x00007ffff16a32c8 in hpx::detail::start_impl(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, char const*, char**) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#10 0x00005555555eb3c1 in hpx::start(decltype(nullptr), int, char**, hpx::init_params const&) (argc=1, argv=0x7fffffffcbe0, params=...) at /home/petricic1/hpx-gcc11-nordtsc/include/hpx/hpx_start_impl.hpp:118
+#11 0x00005555555e85d1 in Kokkos::Experimental::HPX::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/HPX/Kokkos_HPX.cpp:220
+#12 0x000055555561f27a in Kokkos::Impl::ExecSpaceDerived<Kokkos::Experimental::HPX>::initialize (this=0x555555875830, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#13 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#14 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#15 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#16 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#17 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fffaa7fc000 (LWP 1389099)]
+
+ 20--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x7fffffffba80, attr=0x0, start_routine=0x7ffff0ee1210, arg=0x5555558ac820) at ./nptl/pthread_create.c:631
+#1  0x00007ffff0ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#2  0x00007ffff7e1f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#3  0x00007ffff7e2c9dc in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::run(std::unique_lock<std::mutex>&, unsigned long) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#4  0x00007ffff7e68651 in hpx::threads::threadmanager::run() const () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#5  0x00007ffff17ddf1e in hpx::runtime_distributed::start(hpx::function<int (), false> const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#6  0x00007ffff17d5fc0 in hpx::runtime_distributed::start(bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#7  0x00007ffff16a209f in hpx::detail::run_or_start(bool, std::unique_ptr<hpx::runtime, std::default_delete<hpx::runtime> >, hpx::util::command_line_handling&, hpx::move_only_function<void (), false>, hpx::move_only_function<void (), false>) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#8  0x00007ffff16a29bc in hpx::detail::run_or_start(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#9  0x00007ffff16a32c8 in hpx::detail::start_impl(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, char const*, char**) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#10 0x00005555555eb3c1 in hpx::start(decltype(nullptr), int, char**, hpx::init_params const&) (argc=1, argv=0x7fffffffcbe0, params=...) at /home/petricic1/hpx-gcc11-nordtsc/include/hpx/hpx_start_impl.hpp:118
+#11 0x00005555555e85d1 in Kokkos::Experimental::HPX::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/HPX/Kokkos_HPX.cpp:220
+#12 0x000055555561f27a in Kokkos::Impl::ExecSpaceDerived<Kokkos::Experimental::HPX>::initialize (this=0x555555875830, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#13 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#14 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#15 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#16 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#17 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fffa9ffb000 (LWP 1389100)]
+
+ 21--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x7fffffffba80, attr=0x0, start_routine=0x7ffff0ee1210, arg=0x5555558aca10) at ./nptl/pthread_create.c:631
+#1  0x00007ffff0ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#2  0x00007ffff7e1f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#3  0x00007ffff7e2c9dc in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::run(std::unique_lock<std::mutex>&, unsigned long) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#4  0x00007ffff7e68651 in hpx::threads::threadmanager::run() const () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#5  0x00007ffff17ddf1e in hpx::runtime_distributed::start(hpx::function<int (), false> const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#6  0x00007ffff17d5fc0 in hpx::runtime_distributed::start(bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#7  0x00007ffff16a209f in hpx::detail::run_or_start(bool, std::unique_ptr<hpx::runtime, std::default_delete<hpx::runtime> >, hpx::util::command_line_handling&, hpx::move_only_function<void (), false>, hpx::move_only_function<void (), false>) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#8  0x00007ffff16a29bc in hpx::detail::run_or_start(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#9  0x00007ffff16a32c8 in hpx::detail::start_impl(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, char const*, char**) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#10 0x00005555555eb3c1 in hpx::start(decltype(nullptr), int, char**, hpx::init_params const&) (argc=1, argv=0x7fffffffcbe0, params=...) at /home/petricic1/hpx-gcc11-nordtsc/include/hpx/hpx_start_impl.hpp:118
+#11 0x00005555555e85d1 in Kokkos::Experimental::HPX::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/HPX/Kokkos_HPX.cpp:220
+#12 0x000055555561f27a in Kokkos::Impl::ExecSpaceDerived<Kokkos::Experimental::HPX>::initialize (this=0x555555875830, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#13 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#14 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#15 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#16 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#17 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fffa97fa000 (LWP 1389101)]
+
+ 22--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x7fffffffba80, attr=0x0, start_routine=0x7ffff0ee1210, arg=0x5555558acc00) at ./nptl/pthread_create.c:631
+#1  0x00007ffff0ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#2  0x00007ffff7e1f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#3  0x00007ffff7e2c9dc in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::run(std::unique_lock<std::mutex>&, unsigned long) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#4  0x00007ffff7e68651 in hpx::threads::threadmanager::run() const () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#5  0x00007ffff17ddf1e in hpx::runtime_distributed::start(hpx::function<int (), false> const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#6  0x00007ffff17d5fc0 in hpx::runtime_distributed::start(bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#7  0x00007ffff16a209f in hpx::detail::run_or_start(bool, std::unique_ptr<hpx::runtime, std::default_delete<hpx::runtime> >, hpx::util::command_line_handling&, hpx::move_only_function<void (), false>, hpx::move_only_function<void (), false>) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#8  0x00007ffff16a29bc in hpx::detail::run_or_start(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#9  0x00007ffff16a32c8 in hpx::detail::start_impl(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, char const*, char**) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#10 0x00005555555eb3c1 in hpx::start(decltype(nullptr), int, char**, hpx::init_params const&) (argc=1, argv=0x7fffffffcbe0, params=...) at /home/petricic1/hpx-gcc11-nordtsc/include/hpx/hpx_start_impl.hpp:118
+#11 0x00005555555e85d1 in Kokkos::Experimental::HPX::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/HPX/Kokkos_HPX.cpp:220
+#12 0x000055555561f27a in Kokkos::Impl::ExecSpaceDerived<Kokkos::Experimental::HPX>::initialize (this=0x555555875830, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#13 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#14 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#15 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#16 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#17 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fffa8ff9000 (LWP 1389102)]
+
+ 23--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x7fffffffba80, attr=0x0, start_routine=0x7ffff0ee1210, arg=0x5555558acdf0) at ./nptl/pthread_create.c:631
+#1  0x00007ffff0ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#2  0x00007ffff7e1f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#3  0x00007ffff7e2c9dc in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::run(std::unique_lock<std::mutex>&, unsigned long) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#4  0x00007ffff7e68651 in hpx::threads::threadmanager::run() const () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#5  0x00007ffff17ddf1e in hpx::runtime_distributed::start(hpx::function<int (), false> const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#6  0x00007ffff17d5fc0 in hpx::runtime_distributed::start(bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#7  0x00007ffff16a209f in hpx::detail::run_or_start(bool, std::unique_ptr<hpx::runtime, std::default_delete<hpx::runtime> >, hpx::util::command_line_handling&, hpx::move_only_function<void (), false>, hpx::move_only_function<void (), false>) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#8  0x00007ffff16a29bc in hpx::detail::run_or_start(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#9  0x00007ffff16a32c8 in hpx::detail::start_impl(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, char const*, char**) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#10 0x00005555555eb3c1 in hpx::start(decltype(nullptr), int, char**, hpx::init_params const&) (argc=1, argv=0x7fffffffcbe0, params=...) at /home/petricic1/hpx-gcc11-nordtsc/include/hpx/hpx_start_impl.hpp:118
+#11 0x00005555555e85d1 in Kokkos::Experimental::HPX::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/HPX/Kokkos_HPX.cpp:220
+#12 0x000055555561f27a in Kokkos::Impl::ExecSpaceDerived<Kokkos::Experimental::HPX>::initialize (this=0x555555875830, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#13 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#14 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#15 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#16 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#17 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fff8bfff000 (LWP 1389103)]
+
+ 24--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x7fffffffba80, attr=0x0, start_routine=0x7ffff0ee1210, arg=0x5555558acfe0) at ./nptl/pthread_create.c:631
+#1  0x00007ffff0ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#2  0x00007ffff7e1f461 in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::add_processing_unit_internal(unsigned long, unsigned long, std::shared_ptr<hpx::util::barrier>, hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#3  0x00007ffff7e2c9dc in hpx::threads::detail::scheduled_thread_pool<hpx::threads::policies::local_priority_queue_scheduler<std::mutex, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo, hpx::threads::policies::lockfree_fifo> >::run(std::unique_lock<std::mutex>&, unsigned long) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#4  0x00007ffff7e68651 in hpx::threads::threadmanager::run() const () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#5  0x00007ffff17ddf1e in hpx::runtime_distributed::start(hpx::function<int (), false> const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#6  0x00007ffff17d5fc0 in hpx::runtime_distributed::start(bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#7  0x00007ffff16a209f in hpx::detail::run_or_start(bool, std::unique_ptr<hpx::runtime, std::default_delete<hpx::runtime> >, hpx::util::command_line_handling&, hpx::move_only_function<void (), false>, hpx::move_only_function<void (), false>) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#8  0x00007ffff16a29bc in hpx::detail::run_or_start(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, bool) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#9  0x00007ffff16a32c8 in hpx::detail::start_impl(hpx::function<int (hpx::program_options::variables_map&), false> const&, int, char**, hpx::init_params const&, char const*, char**) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#10 0x00005555555eb3c1 in hpx::start(decltype(nullptr), int, char**, hpx::init_params const&) (argc=1, argv=0x7fffffffcbe0, params=...) at /home/petricic1/hpx-gcc11-nordtsc/include/hpx/hpx_start_impl.hpp:118
+#11 0x00005555555e85d1 in Kokkos::Experimental::HPX::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/HPX/Kokkos_HPX.cpp:220
+#12 0x000055555561f27a in Kokkos::Impl::ExecSpaceDerived<Kokkos::Experimental::HPX>::initialize (this=0x555555875830, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#13 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#14 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#15 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#16 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#17 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fff8b7fe000 (LWP 1389104)]
+
+ 25--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x555555878fd8, attr=0x0, start_routine=0x7ffff2108830, arg=0x555555878fc0) at ./nptl/pthread_create.c:631
+#1  0x00007ffff211dc74 in ?? () from /lib/x86_64-linux-gnu/libcuda.so.1
+#2  0x00007ffff22043cc in ?? () from /lib/x86_64-linux-gnu/libcuda.so.1
+#3  0x00007ffff20d4834 in ?? () from /lib/x86_64-linux-gnu/libcuda.so.1
+#4  0x00007ffff2114152 in ?? () from /lib/x86_64-linux-gnu/libcuda.so.1
+#5  0x00007ffff2105930 in cuInit () from /lib/x86_64-linux-gnu/libcuda.so.1
+#6  0x00007ffff1a36845 in ?? () from /usr/local/cuda-13.0/lib64/libcudart.so.13
+#7  0x00007ffff1a3cd98 in ?? () from /usr/local/cuda-13.0/lib64/libcudart.so.13
+#8  0x00007ffff0ca1bc7 in __pthread_once_slow (once_control=0x7ffff1cac308, init_routine=0x7ffff1a3cd50) at ./nptl/pthread_once.c:116
+#9  0x00007ffff0ca1c39 in ___pthread_once (once_control=<optimized out>, init_routine=<optimized out>) at ./nptl/pthread_once.c:143
+#10 0x00007ffff1a82879 in ?? () from /usr/local/cuda-13.0/lib64/libcudart.so.13
+#11 0x00007ffff1a3747f in ?? () from /usr/local/cuda-13.0/lib64/libcudart.so.13
+#12 0x00007ffff1a4723a in cudaGetDeviceCount () from /usr/local/cuda-13.0/lib64/libcudart.so.13
+#13 0x0000555555595c22 in (anonymous namespace)::get_device_count () at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:135
+#14 0x0000555555595cfb in Kokkos::Impl::get_visible_devices () at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:173
+#15 0x00005555555de07c in Kokkos::Cuda::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/Cuda/Kokkos_Cuda_Instance.cpp:543
+#16 0x00005555555e7ae6 in Kokkos::Impl::ExecSpaceDerived<Kokkos::Cuda>::initialize (this=0x555555874970, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#17 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#18 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#19 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#20 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#21 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fff8affd000 (LWP 1389105)]
+
+ 26--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x55555588a138, attr=0x0, start_routine=0x7ffff2108830, arg=0x55555588a120) at ./nptl/pthread_create.c:631
+#1  0x00007ffff211dc74 in ?? () from /lib/x86_64-linux-gnu/libcuda.so.1
+#2  0x00007ffff2052f4a in ?? () from /lib/x86_64-linux-gnu/libcuda.so.1
+#3  0x00007ffff206cde3 in ?? () from /lib/x86_64-linux-gnu/libcuda.so.1
+#4  0x00007ffff206ebd6 in ?? () from /lib/x86_64-linux-gnu/libcuda.so.1
+#5  0x00007ffff206ed4c in ?? () from /lib/x86_64-linux-gnu/libcuda.so.1
+#6  0x00007ffff2134e6c in ?? () from /lib/x86_64-linux-gnu/libcuda.so.1
+#7  0x00007ffff2129560 in cuDevicePrimaryCtxRetain () from /lib/x86_64-linux-gnu/libcuda.so.1
+#8  0x00007ffff1a3e129 in ?? () from /usr/local/cuda-13.0/lib64/libcudart.so.13
+#9  0x00007ffff1a3e339 in ?? () from /usr/local/cuda-13.0/lib64/libcudart.so.13
+#10 0x00007ffff1a3ea98 in ?? () from /usr/local/cuda-13.0/lib64/libcudart.so.13
+#11 0x00007ffff1a3de01 in ?? () from /usr/local/cuda-13.0/lib64/libcudart.so.13
+#12 0x00007ffff1a1092e in ?? () from /usr/local/cuda-13.0/lib64/libcudart.so.13
+#13 0x00007ffff1a48cd8 in cudaSetDevice () from /usr/local/cuda-13.0/lib64/libcudart.so.13
+#14 0x00005555555de113 in Kokkos::Cuda::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/Cuda/Kokkos_Cuda_Instance.cpp:551
+#15 0x00005555555e7ae6 in Kokkos::Impl::ExecSpaceDerived<Kokkos::Cuda>::initialize (this=0x555555874970, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#16 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#17 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#18 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#19 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#20 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fff895db000 (LWP 1389109)]
+
+ 27--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x555555883618, attr=0x0, start_routine=0x7ffff2108830, arg=0x555555883600) at ./nptl/pthread_create.c:631
+#1  0x00007ffff211dc74 in ?? () from /lib/x86_64-linux-gnu/libcuda.so.1
+#2  0x00007ffff22043cc in ?? () from /lib/x86_64-linux-gnu/libcuda.so.1
+#3  0x00007ffff206bca4 in ?? () from /lib/x86_64-linux-gnu/libcuda.so.1
+#4  0x00007ffff206ebd6 in ?? () from /lib/x86_64-linux-gnu/libcuda.so.1
+#5  0x00007ffff206ed4c in ?? () from /lib/x86_64-linux-gnu/libcuda.so.1
+#6  0x00007ffff2134e6c in ?? () from /lib/x86_64-linux-gnu/libcuda.so.1
+#7  0x00007ffff2129560 in cuDevicePrimaryCtxRetain () from /lib/x86_64-linux-gnu/libcuda.so.1
+#8  0x00007ffff1a3e129 in ?? () from /usr/local/cuda-13.0/lib64/libcudart.so.13
+#9  0x00007ffff1a3e339 in ?? () from /usr/local/cuda-13.0/lib64/libcudart.so.13
+#10 0x00007ffff1a3ea98 in ?? () from /usr/local/cuda-13.0/lib64/libcudart.so.13
+#11 0x00007ffff1a3de01 in ?? () from /usr/local/cuda-13.0/lib64/libcudart.so.13
+#12 0x00007ffff1a1092e in ?? () from /usr/local/cuda-13.0/lib64/libcudart.so.13
+#13 0x00007ffff1a48cd8 in cudaSetDevice () from /usr/local/cuda-13.0/lib64/libcudart.so.13
+#14 0x00005555555de113 in Kokkos::Cuda::impl_initialize (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/Cuda/Kokkos_Cuda_Instance.cpp:551
+#15 0x00005555555e7ae6 in Kokkos::Impl::ExecSpaceDerived<Kokkos::Cuda>::initialize (this=0x555555874970, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:127
+#16 0x0000555555595f8e in Kokkos::Impl::ExecSpaceManager::initialize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>, settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:233
+#17 0x000055555559766b in (anonymous namespace)::initialize_backends (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:455
+#18 0x000055555559942f in (anonymous namespace)::initialize_internal (settings=...) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:762
+#19 0x000055555559a579 in Kokkos::initialize (argc=@0x7fffffffcd3c: 1, argv=0x7fffffffcf28) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1039
+#20 0x0000555555571249 in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:103
+[New Thread 0x7fff88dda000 (LWP 1389110)]
+
+ 28--- pthread_create called from: ---
+#0  __pthread_create_2_1 (newthread=0x7fffffffc6c8, attr=0x0, start_routine=0x7ffff0ee1210, arg=0x55555633a8e0) at ./nptl/pthread_create.c:631
+#1  0x00007ffff0ee12f9 in std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#2  0x00007ffff17db72a in hpx::runtime_distributed::wait() () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx.so.2
+#3  0x00007ffff7d5b4e2 in hpx::local::stop(hpx::error_code&) () from /home/petricic1/hpx-gcc11-nordtsc/lib/libhpx_core.so
+#4  0x00005555555e86ad in Kokkos::Experimental::HPX::impl_finalize () at /home/petricic1/.fc/kokkos-src/core/src/HPX/Kokkos_HPX.cpp:240
+#5  0x000055555561f28f in Kokkos::Impl::ExecSpaceDerived<Kokkos::Experimental::HPX>::finalize (this=0x555555875830) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_ExecSpaceManager.hpp:129
+#6  0x000055555559601d in Kokkos::Impl::ExecSpaceManager::finalize_spaces (this=0x5555557a6a80 <Kokkos::Impl::ExecSpaceManager::get_instance()::space_initializer>) at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:239
+#7  0x000055555559a6ed in Kokkos::finalize () at /home/petricic1/.fc/kokkos-src/core/src/impl/Kokkos_Core.cpp:1081
+#8  0x0000555555571144 in hpx_main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:94
+#9  0x00005555555712dd in main (argc=1, argv=0x7fffffffcf28) at /home/petricic1/Desktop/JSC/Learning/Week5/src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp:108
+[New Thread 0x7fff74dde000 (LWP 1389121)]
+[Thread 0x7fff74dde000 (LWP 1389121) exited]
+[Thread 0x7fffce7fc000 (LWP 1389092) exited]
+[Thread 0x7fffceffd000 (LWP 1389091) exited]
+[Thread 0x7fffaa7fc000 (LWP 1389099) exited]
+[Thread 0x7fffab7fe000 (LWP 1389097) exited]
+[Thread 0x7fffcf7fe000 (LWP 1389090) exited]
+[Thread 0x7fffaaffd000 (LWP 1389098) exited]
+[Thread 0x7fffa9ffb000 (LWP 1389100) exited]
+[Thread 0x7fff8b7fe000 (LWP 1389104) exited]
+[Thread 0x7fff8bfff000 (LWP 1389103) exited]
+[Thread 0x7fffa8ff9000 (LWP 1389102) exited]
+[Thread 0x7fffa97fa000 (LWP 1389101) exited]
+[Thread 0x7fffabfff000 (LWP 1389096) exited]
+[Thread 0x7fffccff9000 (LWP 1389095) exited]
+[Thread 0x7fffcd7fa000 (LWP 1389094) exited]
+[Thread 0x7fffcdffb000 (LWP 1389093) exited]
+[Thread 0x7fffcffff000 (LWP 1389089) exited]
+[Thread 0x7fffecdf8000 (LWP 1389088) exited]
+[Thread 0x7fffed5f9000 (LWP 1389087) exited]
+[Thread 0x7fffeddfa000 (LWP 1389086) exited]
+[Thread 0x7fffee5fb000 (LWP 1389085) exited]
+[Thread 0x7fffef5fd000 (LWP 1389083) exited]
+[Thread 0x7fffeedfc000 (LWP 1389084) exited]
+[Thread 0x7fffefdfe000 (LWP 1389082) exited]
+[Thread 0x7ffff05ff000 (LWP 1389081) exited]
+[Thread 0x7fff88dda000 (LWP 1389110) exited]
+[Thread 0x7fff8affd000 (LWP 1389105) exited]
+[Thread 0x7ffff7aa7000 (LWP 1389073) exited]
+[Thread 0x7fff895db000 (LWP 1389109) exited]
+[New process 1389073]
+[Inferior 1 (process 1389073) exited normally]
+$1 = 28

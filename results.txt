@@ -1,2 +1,2 @@
-ExecutionSpace: HPX
-2, 0.0772384
+ExecutionSpace: OpenMP
+2, 0.334444

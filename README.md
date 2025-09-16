@@ -148,3 +148,60 @@ A total of **28** OS-level threads (`pthreads`) were created during the program'
     #8  hpx_main (...)
     #9  main (...)
     ```
+
+
+-----
+
+# A Possible Interpretation of Thread Creation
+
+A total of **109** OS-level threads (`pthreads`) were created. The significant increase from the previous run **appears to be related to how the OpenMP runtime is handling the nested parallelism** initiated by HPX.
+
+-----
+
+### Breakdown of Thread Creation Events
+
+  * **Initial OpenMP Thread Pool? (Threads 1-27)**
+
+      * The first wave of thread creation seems to happen when Kokkos initializes its OpenMP backend. The call stack points to `GOMP_parallel`, the GNU OpenMP runtime, which suggests it might be creating its primary pool of worker threads right at the start.
+
+    <!-- end list -->
+
+    ```gdb
+     1--- pthread_create called from: ---
+    #2  GOMP_parallel () from /lib/x86_64-linux-gnu/libgomp.so.1
+    #3  Kokkos::Impl::OpenMPInternal::get_current_max_threads ()
+    #5  Kokkos::OpenMP::impl_initialize (...)
+    #11 main (...)
+    ```
+
+  * **CUDA Driver Initialization (Threads 28-30)**
+
+      * These few threads seem to be created by the CUDA runtime during its own initialization
+
+  * **HPX Worker Thread Pool (Threads 31-54)**
+
+      * This next group is almost certainly the HPX runtime creating its separate pool of worker threads. The call to `add_processing_unit_internal` is a strong indicator that these threads will be used by the HPX scheduler.
+
+    <!-- end list -->
+
+    ```gdb
+     35--- pthread_create called from: ---
+    #2  hpx::threads::detail::scheduled_thread_pool<...>::add_processing_unit_internal(...)
+    #5  hpx::runtime::start(...)
+    #12 main (...)
+    ```
+
+  * **Dynamic Threads During Kernel Execution? (Threads 55+)**
+
+      * This pattern is the most likely reason for the high thread count. The backtrace suggests that when an HPX task (`task_object::do_run`) calls a Kokkos kernel (`process_kernel_A`), the OpenMP backend (`GOMP_parallel`) is triggered to spawn a **new, temporary team of threads**. If this happens for many of the kernels launched by HPX, it would explain the large number of `pthread_create` calls.
+
+    <!-- end list -->
+
+    ```gdb
+     55--- pthread_create called from: ---
+    #2  GOMP_parallel () from /lib/x86_64-linux-gnu/libgomp.so.1
+    #5  Kokkos::parallel_for(...)
+    #6  process_kernel_A (...)
+    #10 hpx::lcos::local::detail::task_object<...>::do_run (...)
+    ```
+More details in **pthread_calls_HPXscheduling_OpenMPhostBackend_CUDAdeviceBackend.log**
