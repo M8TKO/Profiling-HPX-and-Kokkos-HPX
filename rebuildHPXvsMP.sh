@@ -47,8 +47,8 @@ cmake --fresh -S "$SOURCEDIR" -B "$BUILDDIR" "$@" \
   -DCUDAToolkit_ROOT="$CUDA_PREFIX" \
   -DKokkos_ENABLE_CUDA=ON \
   -DKokkos_ENABLE_SERIAL=ON \
-  -DKokkos_ENABLE_HPX=ON \
-  -DKokkos_ENABLE_OPENMP=OFF \
+  -DKokkos_ENABLE_HPX=OFF \
+  -DKokkos_ENABLE_OPENMP=ON \
   -DKokkos_ARCH_AMPERE86=ON \
   -DKokkos_ENABLE_CUDA_LAMBDA=ON \
   -DKokkos_ENABLE_CUDA_GRAPH=OFF \
@@ -56,3 +56,4 @@ cmake --fresh -S "$SOURCEDIR" -B "$BUILDDIR" "$@" \
   -DCMAKE_CXX_FLAGS="-isystem $BOOST_ROOT/include -w"
 
 cmake --build "$BUILDDIR" -j20
+echo $BUILDDIR
