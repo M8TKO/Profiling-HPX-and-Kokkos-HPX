@@ -27,7 +27,10 @@ void process_kernel_B(Kokkos::View<double*, HostSpace> host_data, int N) {
 
     Kokkos::deep_copy(device_data, host_data);
 
-    Kokkos::parallel_for("process_B", Kokkos::RangePolicy<DeviceSpace>(0, N), KOKKOS_LAMBDA(const int i) {
+ 
+
+    Kokkos::parallel_for("process_B", Kokkos::RangePolicy<DeviceSpace>(  DeviceSpace(), 0, N), KOKKOS_LAMBDA(const int i) {
+        
         double temp_val = static_cast<double>(N - i);
         for (int k = 0; k < 1000; ++k) {
             temp_val = cos(0.001 * temp_val);
@@ -38,7 +41,7 @@ void process_kernel_B(Kokkos::View<double*, HostSpace> host_data, int N) {
     Kokkos::deep_copy(host_data, device_data);
 
     //std::cout << "Fencing of process B" << std::endl;
-    Kokkos::fence();
+    //Kokkos::fence();
 }
 void process_kernel_C(Kokkos::View<double*, HostSpace> data, int N) {
     Kokkos::parallel_for("process_C", Kokkos::RangePolicy<HostSpace>(0, N), KOKKOS_LAMBDA(const int i) {
@@ -58,8 +61,8 @@ int hpx_main(int argc, char* argv[]) {
     std::ofstream outfile("results.txt");
     outfile << "ExecutionSpace: " << HostSpace::name() << std::endl;
     
-    for (int num_futures = 10; num_futures <= 10; ++num_futures) {
-        const int N = 1e5;
+    for (int num_futures = 3; num_futures <= 3; ++num_futures) {
+        const int N = 1e7;
         
 
         std::vector<hpx::future<void>> futures;

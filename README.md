@@ -1,2 +1,39 @@
-# How does Kokkos manage CUDA streams?
-I ran `HPXandKokkosHPX_vs_KokkosOpenMP.cpp` with a Serial Host backend and Cuda device backend. HPX schedules 10 tasks one after another, each on is a function which calls a device kernel. Using `nsys`, it seems they are all using the **same** stream whicih is not the default stream - two streams in total. Events view of the default stream mostly shows `memcpy` calls.
+# Kokkos Resources
+
+I will try different ways to manage Cuda streams with Kokkos.
+
+* [MultiGPU Kokkos Support and Stream Managing](https://kokkos.org/kokkos-core-wiki/API/core/MultiGPUSupport.html)
+* [Section 3.1, "Execution Spaces"](https://escholarship.org/content/qt0wz9p9vg/qt0wz9p9vg.pdf)
+    * > Every parallel operation in Kokkos is enqueued into a first-in, first-out queue in an instance of an execution space (Execution Space Instance). The resources that these instances encapsulate are execution model entities like threads or handles to a device. For example, each Kokkos::Cuda execution space instance encapsulates a CUDA stream, and each Kokkos::Threads instance encapsulates a thread pool.
+* [Some syntax on how to possibly spawn different Cuda streams](https://kokkos.org/kokkos-core-wiki/API/core/policies/ExecutionPolicyConcept.html)
+
+So far I have tried these approaches:  
+`using DeviceSpace = Kokkos::Cuda;`  
+1. Calling the constructor within the Kokkos Kernel call with the idea that it will create a new stream each time.
+``` 
+Kokkos::parallel_for("process_B", Kokkos::RangePolicy<DeviceSpace>(  DeviceSpace(), 0, N), KOKKOS_LAMBDA(const int i) {
+        /* calculation */
+    });
+```
+**Results:** nsys showed the same stream being used
+
+2. Each time declaring a new variable of the type `DeviceSpace` and forwarding it to the Cuda Kernel.
+``` 
+DeviceSpace deviceSpace;  
+
+Kokkos::parallel_for("process_B", Kokkos::RangePolicy<DeviceSpace>(  deviceSpace, 0, N), KOKKOS_LAMBDA(const int i) {
+        /* calculation */
+    });
+```
+**Results:** nsys showed the same stream being used
+
+3. Because the previous tries didn't work, I suspected it may have been a scope problem because the kernel calling thread exited the function - at this point there was no `Kokkos::fence()` in between the end on the kernel call the the exit point of the function. So I made a global variable:
+`std::vector<DeviceSpace> deviceSpaces;`
+``` 
+deviceSpaces.push_back(DeviceSpace());  
+
+Kokkos::parallel_for("process_B", Kokkos::RangePolicy<DeviceSpace>(  deviceSpaces[deviceSpaces.size()-1], 0, N), KOKKOS_LAMBDA(const int i) {
+        /* calculation */
+    });
+```
+**Results:** nsys showed the same stream being used
