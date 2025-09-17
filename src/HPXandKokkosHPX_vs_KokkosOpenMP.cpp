@@ -27,21 +27,27 @@ void process_kernel_B(Kokkos::View<double*, HostSpace> host_data, int N) {
 
     Kokkos::deep_copy(device_data, host_data);
 
- 
+    cudaStream_t stream;
+    cudaStreamCreate(&stream);
+    Kokkos::Cuda exec_space(stream);
 
-    Kokkos::parallel_for("process_B", Kokkos::RangePolicy<DeviceSpace>(  DeviceSpace(), 0, N), KOKKOS_LAMBDA(const int i) {
+    {
+          Kokkos::parallel_for("process_B", Kokkos::RangePolicy<DeviceSpace>(  exec_space, 0, N), KOKKOS_LAMBDA(const int i) {
         
-        double temp_val = static_cast<double>(N - i);
-        for (int k = 0; k < 1000; ++k) {
-            temp_val = cos(0.001 * temp_val);
-        }
-        device_data(i) = temp_val;
-    });
-
+            double temp_val = static_cast<double>(N - i);
+            for (int k = 0; k < 1000; ++k) {
+                temp_val = cos(0.001 * temp_val);
+            }
+            device_data(i) = temp_val;
+        });
+        Kokkos::fence();
+    }
+  
+    cudaStreamDestroy(stream);
     Kokkos::deep_copy(host_data, device_data);
 
     //std::cout << "Fencing of process B" << std::endl;
-    //Kokkos::fence();
+    
 }
 void process_kernel_C(Kokkos::View<double*, HostSpace> data, int N) {
     Kokkos::parallel_for("process_C", Kokkos::RangePolicy<HostSpace>(0, N), KOKKOS_LAMBDA(const int i) {

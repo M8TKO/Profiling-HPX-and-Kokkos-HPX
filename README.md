@@ -37,3 +37,18 @@ Kokkos::parallel_for("process_B", Kokkos::RangePolicy<DeviceSpace>(  deviceSpace
     });
 ```
 **Results:** nsys showed the same stream being used
+
+4. More interesting try. 
+```
+    cudaStream_t stream;
+    cudaStreamCreate(&stream);
+    Kokkos::Cuda exec_space(stream);
+
+    Kokkos::parallel_for("process_B", Kokkos::RangePolicy<DeviceSpace>(  exec_space, 0, N), KOKKOS_LAMBDA(const int i) {
+        /* calculation */
+    });
+    Kokkos::fence();
+
+```
+**Results:** The function was ran 3 times == 3 HPX tasks. Total of 5 streams were spawned, 1 defalt and streams 13,14,15,16. Streams 14,15,16 each called the kernel once, stream 13 had less then 0.1% GPU work, it called Memcpy and Memset both 2 times, that might have been the thread that copies the View from host to device and device to host. Currently there is a `Kokkos::fence()` after the Kokkos kernel call so next try will be the without it. 
+
