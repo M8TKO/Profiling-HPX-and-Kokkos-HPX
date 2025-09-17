@@ -1,2 +1,0 @@
-ExecutionSpace: OpenMP
-2, 0.334444
