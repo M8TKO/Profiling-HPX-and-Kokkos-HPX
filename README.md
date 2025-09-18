@@ -52,3 +52,16 @@ Kokkos::parallel_for("process_B", Kokkos::RangePolicy<DeviceSpace>(  deviceSpace
 ```
 **Results:** The function was ran 3 times == 3 HPX tasks. Total of 5 streams were spawned, 1 defalt and streams 13,14,15,16. Streams 14,15,16 each called the kernel once, stream 13 had less then 0.1% GPU work, it called Memcpy and Memset both 2 times, that might have been the thread that copies the View from host to device and device to host. Currently there is a `Kokkos::fence()` after the Kokkos kernel call so next try will be the without it. 
 
+5. Instead of using `std::vector<hpx::futures<void>>`, I tried  
+```
+ hpx::for_each(
+            hpx::execution::par,  // The parallel execution policy
+            iterations.begin(),             // Start of the range to iterate over
+            iterations.end(),               // End of the range
+            [&](int i) {                    // The loop body (lambda function)
+                Kokkos::View<double*, HostSpace> private_data("private_data_" + std::to_string(i), N);
+                process_kernel_B(private_data, N);
+            }
+        );
+```
+**Results:** Same problem, there are multiple streams but they are sequential. `Kokkos::fence()` did not have an impact.

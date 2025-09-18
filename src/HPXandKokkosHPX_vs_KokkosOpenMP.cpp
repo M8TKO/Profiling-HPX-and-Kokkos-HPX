@@ -41,7 +41,7 @@ void process_kernel_B(Kokkos::View<double*, HostSpace> host_data, int N) {
             }
             //device_data(i) = temp_val;
         });
-        Kokkos::fence();
+        //Kokkos::fence();
     }
   
     cudaStreamDestroy(stream);
