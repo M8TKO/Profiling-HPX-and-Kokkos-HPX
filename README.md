@@ -65,3 +65,20 @@ Kokkos::parallel_for("process_B", Kokkos::RangePolicy<DeviceSpace>(  deviceSpace
         );
 ```
 **Results:** Same problem, there are multiple streams but they are sequential. `Kokkos::fence()` did not have an impact.
+
+6. Now I removed vector completely and used `hpx::dataflow`
+```
+hpx::future<void> completion_future = hpx::make_ready_future();
+
+        for (int i = 0; i < num_futures; i++) {
+            completion_future = hpx::dataflow(
+                [=](hpx::future<void>&&) {
+                    process_kernel_B(N, i);
+                },
+                completion_future
+            );
+        }
+
+        completion_future.get();
+```
+**Results:** Same problem, there are multiple streams but they are sequential. I did it without using `Kokkos::fence()`.

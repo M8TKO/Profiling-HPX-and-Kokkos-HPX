@@ -23,32 +23,24 @@ void process_kernel_A(Kokkos::View<double*, HostSpace> data, int N) {
     Kokkos::fence();
 }
 
-void process_kernel_B(Kokkos::View<double*, HostSpace> host_data, int N) {
-    Kokkos::View<double*, DeviceSpace> device_data("device_data_B", N);
-
-    //Kokkos::deep_copy(device_data, host_data);
+void process_kernel_B(int N, int index) {
 
     cudaStream_t stream;
     cudaStreamCreate(&stream);
     Kokkos::Cuda exec_space(stream);
 
     {
-          Kokkos::parallel_for("process_B", Kokkos::RangePolicy<DeviceSpace>(  exec_space, 0, N), KOKKOS_LAMBDA(const int i) {
+          Kokkos::parallel_for("process_B"+ std::to_string(index), Kokkos::RangePolicy<DeviceSpace>(  exec_space, 0, N), KOKKOS_LAMBDA(const int i) {
         
             volatile double temp_val = static_cast<double>(N - i);
             for (int k = 0; k < 1e3; ++k) {
                 temp_val = cos(0.001 * temp_val);
             }
-            //device_data(i) = temp_val;
         });
         //Kokkos::fence();
     }
   
-    cudaStreamDestroy(stream);
-    //Kokkos::deep_copy(host_data, device_data);
-
-    //std::cout << "Fencing of process B" << std::endl;
-    
+    cudaStreamDestroy(stream);    
 }
 
 void process_kernel_C(Kokkos::View<double*, HostSpace> data, int N) {
@@ -76,18 +68,19 @@ int hpx_main(int argc, char* argv[]) {
         std::vector<hpx::future<void>> futures;
         futures.reserve(num_futures);
         Kokkos::Timer timer;
-        std::vector<int> iterations(num_futures);
-        std::iota(iterations.begin(), iterations.end(), 0);
+       
+        hpx::future<void> completion_future = hpx::make_ready_future();
 
-        hpx::for_each(
-            hpx::execution::par,  // The parallel execution policy
-            iterations.begin(),             // Start of the range to iterate over
-            iterations.end(),               // End of the range
-            [&](int i) {                    // The loop body (lambda function)
-                Kokkos::View<double*, HostSpace> private_data("private_data_" + std::to_string(i), N);
-                process_kernel_B(private_data, N);
-            }
-        );
+        for (int i = 0; i < num_futures; i++) {
+            completion_future = hpx::dataflow(
+                [=](hpx::future<void>&&) {
+                    process_kernel_B(N, i);
+                },
+                completion_future
+            );
+        }
+
+        completion_future.get();
 
         double time = timer.seconds();
         std::cout << "Iteration with " << num_futures << " futures took " << time << " seconds." << std::endl;
