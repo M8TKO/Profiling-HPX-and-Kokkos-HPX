@@ -1,5 +1,6 @@
 #include <hpx/init.hpp>
 #include <hpx/future.hpp>
+#include <hpx/algorithm.hpp>
 #include <cstdint>
 #include <Kokkos_Core.hpp>
 #include <iostream>
@@ -25,7 +26,7 @@ void process_kernel_A(Kokkos::View<double*, HostSpace> data, int N) {
 void process_kernel_B(Kokkos::View<double*, HostSpace> host_data, int N) {
     Kokkos::View<double*, DeviceSpace> device_data("device_data_B", N);
 
-    Kokkos::deep_copy(device_data, host_data);
+    //Kokkos::deep_copy(device_data, host_data);
 
     cudaStream_t stream;
     cudaStreamCreate(&stream);
@@ -34,21 +35,22 @@ void process_kernel_B(Kokkos::View<double*, HostSpace> host_data, int N) {
     {
           Kokkos::parallel_for("process_B", Kokkos::RangePolicy<DeviceSpace>(  exec_space, 0, N), KOKKOS_LAMBDA(const int i) {
         
-            double temp_val = static_cast<double>(N - i);
-            for (int k = 0; k < 1000; ++k) {
+            volatile double temp_val = static_cast<double>(N - i);
+            for (int k = 0; k < 1e3; ++k) {
                 temp_val = cos(0.001 * temp_val);
             }
-            device_data(i) = temp_val;
+            //device_data(i) = temp_val;
         });
         Kokkos::fence();
     }
   
     cudaStreamDestroy(stream);
-    Kokkos::deep_copy(host_data, device_data);
+    //Kokkos::deep_copy(host_data, device_data);
 
     //std::cout << "Fencing of process B" << std::endl;
     
 }
+
 void process_kernel_C(Kokkos::View<double*, HostSpace> data, int N) {
     Kokkos::parallel_for("process_C", Kokkos::RangePolicy<HostSpace>(0, N), KOKKOS_LAMBDA(const int i) {
         double temp_val = static_cast<double>(i * i);
@@ -74,15 +76,18 @@ int hpx_main(int argc, char* argv[]) {
         std::vector<hpx::future<void>> futures;
         futures.reserve(num_futures);
         Kokkos::Timer timer;
-        for (int i = 0; i < num_futures; i++) {
-            Kokkos::View<double*, HostSpace> private_data("private_data_" + std::to_string(i), N);
+        std::vector<int> iterations(num_futures);
+        std::iota(iterations.begin(), iterations.end(), 0);
 
-            futures.push_back(hpx::async(process_kernel_B, private_data, N));
-            //hpx::wait_all(futures);
-        }
-
-        std::cout << "All " << num_futures << " futures launched concurrently." << std::endl;
-        hpx::wait_all(futures);
+        hpx::for_each(
+            hpx::execution::par,  // The parallel execution policy
+            iterations.begin(),             // Start of the range to iterate over
+            iterations.end(),               // End of the range
+            [&](int i) {                    // The loop body (lambda function)
+                Kokkos::View<double*, HostSpace> private_data("private_data_" + std::to_string(i), N);
+                process_kernel_B(private_data, N);
+            }
+        );
 
         double time = timer.seconds();
         std::cout << "Iteration with " << num_futures << " futures took " << time << " seconds." << std::endl;

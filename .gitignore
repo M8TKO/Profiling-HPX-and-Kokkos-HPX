@@ -2,3 +2,9 @@ build/
 Profiling/
 AloneHPX.nsys-rep
 .vscode/
+AloneHPX.AnalysisSummary.html
+AloneHPX.DiagnosticsSummary.html
+HPXtaskingOMPbackend.AnalysisSummary.html
+HPXtaskingOMPbackend.DiagnosticsSummary.html
+results.txt
+CommandLine.md
