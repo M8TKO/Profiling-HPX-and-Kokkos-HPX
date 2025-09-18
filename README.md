@@ -82,3 +82,19 @@ hpx::future<void> completion_future = hpx::make_ready_future();
         completion_future.get();
 ```
 **Results:** Same problem, there are multiple streams but they are sequential. I did it without using `Kokkos::fence()`.
+
+7. So I managed to do it but perhaps in an non satisfying way. When I called the Kokkos kernels, I had to specify the range policy and within that a integer range `(0,N)`. Before it was set to `1e7` and I guess that wants way to much GPU hardware to spawn more concurrent streams. When I lowered it to `1e3`, the code below, worked just fine.
+```
+auto partitionSpaces = Kokkos::Experimental::partition_space(DeviceSpace(), std::vector<int>(num_futures, 1));
+        
+        std::vector<hpx::future<void>> futures;
+        futures.reserve(num_futures);
+        for (int i = 0; i < num_futures; ++i) {
+            futures.push_back(
+                hpx::async( [=, &partitionSpaces]() {
+                    process_kernel_B(partitionSpaces[i], N, i);
+                })
+            );
+        }
+        hpx::wait_all(futures);  
+```

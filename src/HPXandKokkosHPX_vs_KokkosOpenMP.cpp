@@ -6,6 +6,7 @@
 #include <iostream>
 #include <cmath>
 #include <fstream>
+#include <list>
 #include <vector>
 
 using HostSpace = Kokkos::DefaultHostExecutionSpace;
@@ -23,24 +24,18 @@ void process_kernel_A(Kokkos::View<double*, HostSpace> data, int N) {
     Kokkos::fence();
 }
 
-void process_kernel_B(int N, int index) {
+void process_kernel_B(DeviceSpace partitionSpace, int N, int index) {
 
-    cudaStream_t stream;
-    cudaStreamCreate(&stream);
-    Kokkos::Cuda exec_space(stream);
-
-    {
-          Kokkos::parallel_for("process_B"+ std::to_string(index), Kokkos::RangePolicy<DeviceSpace>(  exec_space, 0, N), KOKKOS_LAMBDA(const int i) {
-        
+    Kokkos::parallel_for(
+        "process_B"+ std::to_string(index), 
+        Kokkos::RangePolicy<DeviceSpace>(  partitionSpace, 0, N), 
+        KOKKOS_LAMBDA(const int i) {
             volatile double temp_val = static_cast<double>(N - i);
-            for (int k = 0; k < 1e3; ++k) {
+            for (int k = 0; k < 1e7; ++k)
                 temp_val = cos(0.001 * temp_val);
-            }
-        });
-        //Kokkos::fence();
-    }
-  
-    cudaStreamDestroy(stream);    
+        }
+    );
+    Kokkos::fence();
 }
 
 void process_kernel_C(Kokkos::View<double*, HostSpace> data, int N) {
@@ -61,26 +56,24 @@ int hpx_main(int argc, char* argv[]) {
     std::ofstream outfile("results.txt");
     outfile << "ExecutionSpace: " << HostSpace::name() << std::endl;
     
+    const int N = 1e3;
     for (int num_futures = 3; num_futures <= 3; ++num_futures) {
-        const int N = 1e7;
         
-
-        std::vector<hpx::future<void>> futures;
-        futures.reserve(num_futures);
+        
         Kokkos::Timer timer;
        
-        hpx::future<void> completion_future = hpx::make_ready_future();
-
-        for (int i = 0; i < num_futures; i++) {
-            completion_future = hpx::dataflow(
-                [=](hpx::future<void>&&) {
-                    process_kernel_B(N, i);
-                },
-                completion_future
+        auto partitionSpaces = Kokkos::Experimental::partition_space(DeviceSpace(), std::vector<int>(num_futures, 1));
+        
+        std::vector<hpx::future<void>> futures;
+        futures.reserve(num_futures);
+        for (int i = 0; i < num_futures; ++i) {
+            futures.push_back(
+                hpx::async( [=, &partitionSpaces]() {
+                    process_kernel_B(partitionSpaces[i], N, i);
+                })
             );
         }
-
-        completion_future.get();
+        hpx::wait_all(futures);         
 
         double time = timer.seconds();
         std::cout << "Iteration with " << num_futures << " futures took " << time << " seconds." << std::endl;
