@@ -61,7 +61,7 @@ int hpx_main(int argc, char* argv[]) {
     std::ofstream outfile("results.txt");
     outfile << "ExecutionSpace: " << HostSpace::name() << std::endl;
     
-    for (int num_futures = 2; num_futures <= 2; ++num_futures) {
+    for (int num_futures = 100; num_futures <= 100; ++num_futures) {
         const int N = 1e5;
         
 
