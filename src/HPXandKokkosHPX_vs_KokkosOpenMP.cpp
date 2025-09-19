@@ -31,7 +31,7 @@ void process_kernel_B(DeviceSpace partitionSpace, int N, int index) {
         Kokkos::RangePolicy<DeviceSpace>(  partitionSpace, 0, N), 
         KOKKOS_LAMBDA(const int i) {
             volatile double temp_val = static_cast<double>(N - i);
-            for (int k = 0; k < 1e7; ++k)
+            for (int k = 0; k < 1e4; ++k)
                 temp_val = cos(0.001 * temp_val);
         }
     );
@@ -56,7 +56,7 @@ int hpx_main(int argc, char* argv[]) {
     std::ofstream outfile("results.txt");
     outfile << "ExecutionSpace: " << HostSpace::name() << std::endl;
     
-    const int N = 1e3;
+    const int N = 1e5;
     for (int num_futures = 3; num_futures <= 3; ++num_futures) {
         
         
