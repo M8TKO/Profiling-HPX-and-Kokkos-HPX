@@ -57,3 +57,5 @@ cmake --fresh -S "$SOURCEDIR" -B "$BUILDDIR" "$@" \
 
 cmake --build "$BUILDDIR" -j20
 echo $BUILDDIR
+
+
