@@ -22,17 +22,7 @@ using DeviceMirrorView = typename DeviceView::HostMirror;
 
 DeviceMirrorView fillHost( DeviceMirrorView data){
     Kokkos::parallel_for("fill_host", Kokkos::RangePolicy<HostExecSpace>(0, N), KOKKOS_LAMBDA(const int i) {
-        volatile uint64_t counter = std::numeric_limits<uint64_t>::max() / 1e13;
-        volatile uint64_t val1 = 0;
-        volatile uint64_t val2 = 7;
-        volatile uint64_t val3 = 0;
-
-       while (counter--) {
-        val1 = val1 + val2 * 3;
-        val3 = val1 ^ counter;
-        val2 = val3 - val1 + 5;
-        }
-        data(i) = 1.0 + (double)val1 * 1e-18;
+        data(i) = 1.0;
     });
     HostExecSpace().fence();
     return data;
@@ -41,17 +31,7 @@ DeviceMirrorView fillHost( DeviceMirrorView data){
 DeviceView fillDevice(DeviceExecSpace exec_space, DeviceView data){
     
     Kokkos::parallel_for("fill_device" +std::to_string(indexName++), Kokkos::RangePolicy<DeviceExecSpace>( exec_space, 0, N), KOKKOS_LAMBDA(const int i) {
-        volatile uint64_t counter = std::numeric_limits<uint64_t>::max() / 1e11;
-        volatile uint64_t val1 = 0;
-        volatile uint64_t val2 = 7;
-        volatile uint64_t val3 = 0;
-
-       while (counter--) {
-        val1 = val1 + val2 * 3;
-        val3 = val1 ^ counter;
-        val2 = val3 - val1 + 5;
-    }
-        data(i) = 3.0 + (double)val1 * 1e-18;
+        data(i) = 3.0;
     });
     exec_space.fence();
     return data;
@@ -59,17 +39,7 @@ DeviceView fillDevice(DeviceExecSpace exec_space, DeviceView data){
 
 DeviceMirrorView scalarHost( DeviceMirrorView data, double alpha){
     Kokkos::parallel_for("scalar", Kokkos::RangePolicy<HostExecSpace>(0, N), KOKKOS_LAMBDA(const int i) {
-        volatile uint64_t counter = std::numeric_limits<uint64_t>::max() / 1e13;
-        volatile uint64_t val1 = 0;
-        volatile uint64_t val2 = 7;
-        volatile uint64_t val3 = 0;
-
-       while (counter--) {
-        val1 = val1 + val2 * 3;
-        val3 = val1 ^ counter;
-        val2 = val3 - val1 + 5;
-        }
-        data(i) *= alpha + (double)val1 * 1e-18;
+        data(i) *= alpha;
     });
     HostExecSpace().fence();
     return data;
@@ -77,17 +47,7 @@ DeviceMirrorView scalarHost( DeviceMirrorView data, double alpha){
 
 DeviceView addDevice(DeviceExecSpace exec_space, DeviceView a, DeviceView b, DeviceView c){
     Kokkos::parallel_for("add"+std::to_string(indexName++), Kokkos::RangePolicy<DeviceExecSpace>( exec_space, 0, N), KOKKOS_LAMBDA(const int i) {
-        volatile uint64_t counter = std::numeric_limits<uint64_t>::max() / 1e11;
-        volatile uint64_t val1 = 0;
-        volatile uint64_t val2 = 7;
-        volatile uint64_t val3 = 0;
-
-       while (counter--) {
-        val1 = val1 + val2 * 3;
-        val3 = val1 ^ counter;
-        val2 = val3 - val1 + 5;
-    }
-        c(i) = a(i) + b(i)+ (double)val1 * 1e-18;
+        c(i) = a(i) + b(i);
     });
     exec_space.fence();
     return c;
@@ -95,7 +55,7 @@ DeviceView addDevice(DeviceExecSpace exec_space, DeviceView a, DeviceView b, Dev
 
 int hpx_main(int argc, char* argv[]) {
     
-    std::cout << "Running on: " << HostExecSpace::name() << "\n";
+    std::cout << "Host execution space: " << HostExecSpace::name() << "\n";
     std::cout << "Device execution space: " << DeviceExecSpace::name() << "\n\n";
 
     
@@ -141,10 +101,7 @@ int hpx_main(int argc, char* argv[]) {
         
         copy_future.wait();
         Kokkos::fence();
-        for (int i = 0; i < 10 && i < N; ++i) {
-            // Accessing the view's elements directly on the host.
-            std::cout << "z(" << i << ") = " << z(i) << std::endl;
-        }
+        std::cout << "z(" << 0 << ") = " << z(0) << std::endl;
         Kokkos::fence();
     }
 
@@ -154,9 +111,5 @@ int hpx_main(int argc, char* argv[]) {
 
 int main(int argc, char* argv[]) {
     Kokkos::initialize(argc, argv);
-
-    if( HostExecSpace::name() != "HPX" )
-        return hpx::local::init(hpx_main, argc, argv);
-    else
-        return hpx_main(argc, argv);
+    return hpx::local::init(hpx_main, argc, argv);
 }
