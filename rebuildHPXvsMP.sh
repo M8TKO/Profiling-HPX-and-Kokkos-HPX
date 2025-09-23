@@ -45,7 +45,7 @@ cmake --fresh -S "$SOURCEDIR" -B "$BUILDDIR" "$@" \
   -DCMAKE_CXX_COMPILER="$WRAPPER" \
   -DCMAKE_CUDA_COMPILER="$CUDA_PREFIX/bin/nvcc" \
   -DCUDAToolkit_ROOT="$CUDA_PREFIX" \
-  -DKokkos_ENABLE_CUDA=OFF \
+  -DKokkos_ENABLE_CUDA=ON \
   -DKokkos_ENABLE_SERIAL=ON \
   -DKokkos_ENABLE_HPX=OFF \
   -DKokkos_ENABLE_OPENMP=ON \

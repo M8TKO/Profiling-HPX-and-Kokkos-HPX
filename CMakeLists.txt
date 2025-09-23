@@ -24,26 +24,35 @@ FetchContent_MakeAvailable(Kokkos Kokkos-tools)
 
 find_package(HPX REQUIRED CONFIG)
 
-add_executable(exec src/KokkosHPXBackend.cpp)
-target_compile_features(exec PRIVATE cxx_std_20)
-target_link_libraries(exec
-  PRIVATE
-    Kokkos::kokkos
-    HPX::hpx
-    HPX::wrap_main
-)
+# add_executable(exec src/KokkosHPXBackend.cpp)
+# target_compile_features(exec PRIVATE cxx_std_20)
+# target_link_libraries(exec
+#   PRIVATE
+#     Kokkos::kokkos
+#     HPX::hpx
+#     HPX::wrap_main
+# )
 
-add_executable(exec_hpx src/HPX.cpp)
-target_compile_features(exec_hpx PRIVATE cxx_std_20)
-target_link_libraries(exec_hpx
-  PRIVATE
-    HPX::hpx
-    HPX::wrap_main
-)
+# add_executable(exec_hpx src/HPX.cpp)
+# target_compile_features(exec_hpx PRIVATE cxx_std_20)
+# target_link_libraries(exec_hpx
+#   PRIVATE
+#     HPX::hpx
+#     HPX::wrap_main
+# )
 
-add_executable(exec_HPXvsMP src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp)
-target_compile_features(exec_HPXvsMP PRIVATE cxx_std_20)
-target_link_libraries(exec_HPXvsMP
+# add_executable(exec_HPXvsMP src/HPXandKokkosHPX_vs_KokkosOpenMP.cpp)
+# target_compile_features(exec_HPXvsMP PRIVATE cxx_std_20)
+# target_link_libraries(exec_HPXvsMP
+#   PRIVATE
+#     HPX::hpx
+#     HPX::wrap_main
+#     Kokkos::kokkos
+# )
+
+add_executable(exec_FinalTest src/FinalTest.cpp)
+target_compile_features(exec_FinalTest PRIVATE cxx_std_20)
+target_link_libraries(exec_FinalTest
   PRIVATE
     HPX::hpx
     HPX::wrap_main
