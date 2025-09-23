@@ -9,6 +9,8 @@
 #include <cstdint>
 
 const int N = 1e4;
+int indexName = 0;
+
 
 using HostExecSpace = Kokkos::DefaultHostExecutionSpace;
 using DeviceExecSpace = Kokkos::DefaultExecutionSpace;
@@ -20,7 +22,17 @@ using DeviceMirrorView = typename DeviceView::HostMirror;
 
 DeviceMirrorView fillHost( DeviceMirrorView data){
     Kokkos::parallel_for("fill_host", Kokkos::RangePolicy<HostExecSpace>(0, N), KOKKOS_LAMBDA(const int i) {
-        data(i) = 1.0;
+        volatile uint64_t counter = std::numeric_limits<uint64_t>::max() / 1e13;
+        volatile uint64_t val1 = 0;
+        volatile uint64_t val2 = 7;
+        volatile uint64_t val3 = 0;
+
+       while (counter--) {
+        val1 = val1 + val2 * 3;
+        val3 = val1 ^ counter;
+        val2 = val3 - val1 + 5;
+        }
+        data(i) = 1.0 + (double)val1 * 1e-18;
     });
     HostExecSpace().fence();
     return data;
@@ -28,36 +40,56 @@ DeviceMirrorView fillHost( DeviceMirrorView data){
 
 DeviceView fillDevice(DeviceExecSpace exec_space, DeviceView data){
     
-    Kokkos::parallel_for("fill_device", Kokkos::RangePolicy<DeviceExecSpace>( exec_space, 0, N), KOKKOS_LAMBDA(const int i) {
-        // volatile uint64_t counter = 1e7;
+    Kokkos::parallel_for("fill_device" +std::to_string(indexName++), Kokkos::RangePolicy<DeviceExecSpace>( exec_space, 0, N), KOKKOS_LAMBDA(const int i) {
+        volatile uint64_t counter = std::numeric_limits<uint64_t>::max() / 1e11;
+        volatile uint64_t val1 = 0;
+        volatile uint64_t val2 = 7;
+        volatile uint64_t val3 = 0;
 
-        // volatile uint64_t val1 = 13;
-        // volatile uint64_t val2 = 7;
-        // volatile uint64_t val3 = 0;
-
-        // while (counter--) {
-        //     val1 = val1 + val2 * 3;
-        //     val3 = val1 ^ counter;
-        //     val2 = val3 - val1 + 5;
-        // }
-        data(i) = 3.0;
+       while (counter--) {
+        val1 = val1 + val2 * 3;
+        val3 = val1 ^ counter;
+        val2 = val3 - val1 + 5;
+    }
+        data(i) = 3.0 + (double)val1 * 1e-18;
     });
-    //exec_space.fence();
+    exec_space.fence();
     return data;
 }
 
 DeviceMirrorView scalarHost( DeviceMirrorView data, double alpha){
     Kokkos::parallel_for("scalar", Kokkos::RangePolicy<HostExecSpace>(0, N), KOKKOS_LAMBDA(const int i) {
-        data(i) *= alpha;
+        volatile uint64_t counter = std::numeric_limits<uint64_t>::max() / 1e13;
+        volatile uint64_t val1 = 0;
+        volatile uint64_t val2 = 7;
+        volatile uint64_t val3 = 0;
+
+       while (counter--) {
+        val1 = val1 + val2 * 3;
+        val3 = val1 ^ counter;
+        val2 = val3 - val1 + 5;
+        }
+        data(i) *= alpha + (double)val1 * 1e-18;
     });
     HostExecSpace().fence();
     return data;
 }
 
 DeviceView addDevice(DeviceExecSpace exec_space, DeviceView a, DeviceView b, DeviceView c){
-    Kokkos::parallel_for("add", Kokkos::RangePolicy<DeviceExecSpace>( exec_space, 0, N), KOKKOS_LAMBDA(const int i) {
-        c(i) = a(i) + b(i);
+    Kokkos::parallel_for("add"+std::to_string(indexName++), Kokkos::RangePolicy<DeviceExecSpace>( exec_space, 0, N), KOKKOS_LAMBDA(const int i) {
+        volatile uint64_t counter = std::numeric_limits<uint64_t>::max() / 1e11;
+        volatile uint64_t val1 = 0;
+        volatile uint64_t val2 = 7;
+        volatile uint64_t val3 = 0;
+
+       while (counter--) {
+        val1 = val1 + val2 * 3;
+        val3 = val1 ^ counter;
+        val2 = val3 - val1 + 5;
+    }
+        c(i) = a(i) + b(i)+ (double)val1 * 1e-18;
     });
+    exec_space.fence();
     return c;
 }
 
@@ -118,10 +150,6 @@ int hpx_main(int argc, char* argv[]) {
 
     Kokkos::finalize();
     return hpx::local::finalize();
-//    if( HostExecSpace::name() != "HPX" )
-//         return hpx::local::finalize();
-//     else
-//         return 0;
 }
 
 int main(int argc, char* argv[]) {
