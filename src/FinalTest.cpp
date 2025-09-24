@@ -53,13 +53,7 @@ DeviceView addDevice(DeviceExecSpace exec_space, DeviceView a, DeviceView b, Dev
     return c;
 }
 
-int hpx_main(int argc, char* argv[]) {
-    
-    std::cout << "Host execution space: " << HostExecSpace::name() << "\n";
-    std::cout << "Device execution space: " << DeviceExecSpace::name() << "\n\n";
-
-    
-    {
+void tasking(){
         DeviceView u("u_device", N);
         DeviceMirrorView z = Kokkos::create_mirror_view(u);;
         DeviceView w("w_device", N);
@@ -100,9 +94,135 @@ int hpx_main(int argc, char* argv[]) {
         });
         
         copy_future.wait();
-        Kokkos::fence();
-        std::cout << "z(" << 0 << ") = " << z(0) << std::endl;
-        Kokkos::fence();
+}
+
+
+void totalKernel(){
+    DeviceView z_totalKernel("z", N);
+    DeviceView u_totalKernel("u", N);
+    DeviceView w_totalKernel("w", N);
+    DeviceView out_totalKernel("out", N);
+    double a = 1.0;
+    double b = 3.0;
+    double c = 3.0;
+    double alpha = 2.0;
+
+    Kokkos::parallel_for("total kernel", Kokkos::RangePolicy<DeviceExecSpace>(0, N), KOKKOS_LAMBDA(int i) {
+        z_totalKernel(i) = a; 
+        u_totalKernel(i) = b;
+        w_totalKernel(i) = c;
+        out_totalKernel(i) = alpha * z_totalKernel(i) + u_totalKernel(i) + w_totalKernel(i);
+    });
+    Kokkos::fence();
+    DeviceMirrorView z_totalKernel_mirror = Kokkos::create_mirror_view(out_totalKernel);
+    Kokkos::deep_copy(z_totalKernel_mirror, out_totalKernel);
+
+}
+
+void serialKernels(){
+    DeviceView z_serialKernels("z", N);
+    DeviceView u_serialKernels("u", N);
+    DeviceView w_serialKernels("w", N);
+    DeviceView t_serialKernels("w", N);
+    DeviceView y_serialKernels("w", N);
+    DeviceView out_serialKernels("out", N);
+
+    double a = 1.0;
+    double b = 3.0;
+    double c = 3.0;
+    double alpha = 2.0;
+
+    Kokkos::parallel_for("fill z", Kokkos::RangePolicy<DeviceExecSpace>(0, N), KOKKOS_LAMBDA (int i) {
+        z_serialKernels(i)  = a;
+    });
+    Kokkos::fence();
+
+    Kokkos::parallel_for("fill u", Kokkos::RangePolicy<DeviceExecSpace>(0, N), KOKKOS_LAMBDA (int i) {
+        u_serialKernels(i)  = b;
+    });
+    Kokkos::fence();
+
+    Kokkos::parallel_for("fill w", Kokkos::RangePolicy<DeviceExecSpace>(0, N), KOKKOS_LAMBDA (int i) {
+        w_serialKernels(i)  = c;
+    });
+    Kokkos::fence();
+
+    Kokkos::parallel_for("t=u+w", Kokkos::RangePolicy<DeviceExecSpace>(0, N), KOKKOS_LAMBDA (int i) {
+        t_serialKernels(i) = u_serialKernels(i) + w_serialKernels(i);
+    });
+    Kokkos::fence();
+
+    Kokkos::parallel_for("y = alpha*z", Kokkos::RangePolicy<DeviceExecSpace>(0, N), KOKKOS_LAMBDA (int i) {
+            y_serialKernels(i) = alpha*z_serialKernels(i);
+    });
+    Kokkos::fence();
+
+    Kokkos::parallel_for("out=y+t", Kokkos::RangePolicy<DeviceExecSpace>(0, N), KOKKOS_LAMBDA (int i) {
+        out_serialKernels(i) = y_serialKernels(i) + t_serialKernels(i);
+    });
+    Kokkos::fence();
+    DeviceMirrorView z_serialKernels_mirror = Kokkos::create_mirror_view(out_serialKernels);
+    Kokkos::deep_copy(z_serialKernels_mirror, out_serialKernels);
+}
+
+int hpx_main(int argc, char* argv[]) {
+    
+    std::cout << "Host execution space: " << HostExecSpace::name() << "\n";
+    std::cout << "Device execution space: " << DeviceExecSpace::name() << "\n\n";
+
+    int Ns = 100;
+    int nwarm = 10;
+
+    {
+        std::vector<double> times(Ns,0.0);
+        for(int j = 0; j < nwarm; j++)
+            tasking();
+
+
+        Kokkos::Timer timer;
+        for(int j = 0; j < Ns; j++){
+            timer.reset();
+            tasking();
+            times[j] += timer.seconds();
+        }
+         
+        double min_time = *std::min_element(times.begin(), times.end());
+        std::cout << "Tasking: " << std::endl;
+        std::cout << "Maximum Effective Bandwidth: " << 4 * sizeof(double) * N / 1e9/ min_time << " GB/sec." << std::endl;
+    }
+
+    {
+        std::vector<double> times(Ns,0.0);
+        for(int j = 0; j < nwarm; j++)
+            totalKernel();
+
+        Kokkos::Timer timer;
+        for(int j = 0; j < Ns; j++){
+            timer.reset();
+            totalKernel();
+            times[j] += timer.seconds();
+        }
+         
+        double min_time = *std::min_element(times.begin(), times.end());
+        std::cout << std::endl << "Total kernel: " << std::endl;
+        std::cout << "Maximum Effective Bandwidth: " << 4 * sizeof(double) * N / 1e9/ min_time << " GB/sec." << std::endl;
+    }
+
+    {
+        std::vector<double> times(Ns,0.0);
+        for(int j = 0; j < nwarm; j++)
+            serialKernels();
+
+        Kokkos::Timer timer;
+        for(int j = 0; j < Ns; j++){
+            timer.reset();
+            serialKernels();
+            times[j] += timer.seconds();
+        }
+         
+        double min_time = *std::min_element(times.begin(), times.end());
+        std::cout << std::endl << "Serial kernels: " << std::endl;
+        std::cout << "Maximum Effective Bandwidth: " << 4 * sizeof(double) * N / 1e9/ min_time << " GB/sec." << std::endl;
     }
 
     Kokkos::finalize();
