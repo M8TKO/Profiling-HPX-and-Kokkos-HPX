@@ -8,7 +8,7 @@
 #include <vector>
 #include <cstdint>
 
-const int N = 1e5;
+const int N = 1e4;
 int indexName = 0;
 
 
@@ -20,9 +20,23 @@ using DeviceView = Kokkos::View<double*, DeviceExecSpace>;
 
 using DeviceMirrorView = typename DeviceView::HostMirror;
 
+volatile uint64_t timeWasting(double &x){
+    volatile uint64_t counter = std::numeric_limits<uint64_t>::max() / 1e13;
+    volatile uint64_t val1 = 0;
+    volatile uint64_t val2 = 7;
+    volatile uint64_t val3 = 0;
+
+    while (counter--) {
+    val1 = val1 + val2 * 3;
+    val3 = val1 ^ counter;
+    val2 = val3 - val1 + 5;
+    }
+    return val1*1e-18 + x;
+}
+
 DeviceMirrorView fillHost( DeviceMirrorView data){
     Kokkos::parallel_for("fill_host", Kokkos::RangePolicy<HostExecSpace>(0, N), KOKKOS_LAMBDA(const int i) {
-        data(i) = 1.0;
+        data(i) = 1.0 + timeWasting(data(i));
     });
     HostExecSpace().fence();
     return data;
@@ -31,7 +45,7 @@ DeviceMirrorView fillHost( DeviceMirrorView data){
 DeviceView fillDevice(DeviceExecSpace exec_space, DeviceView data){
     
     Kokkos::parallel_for("fill_device" +std::to_string(indexName++), Kokkos::RangePolicy<DeviceExecSpace>( exec_space, 0, N), KOKKOS_LAMBDA(const int i) {
-        data(i) = 3.0;
+        data(i) = 3.0+ timeWasting(data(i));
     });
     exec_space.fence();
     return data;
@@ -39,7 +53,7 @@ DeviceView fillDevice(DeviceExecSpace exec_space, DeviceView data){
 
 DeviceMirrorView scalarHost( DeviceMirrorView data, double alpha){
     Kokkos::parallel_for("scalar", Kokkos::RangePolicy<HostExecSpace>(0, N), KOKKOS_LAMBDA(const int i) {
-        data(i) *= alpha;
+        data(i) *= alpha+ timeWasting(data(i));
     });
     HostExecSpace().fence();
     return data;
@@ -47,7 +61,7 @@ DeviceMirrorView scalarHost( DeviceMirrorView data, double alpha){
 
 DeviceView addDevice(DeviceExecSpace exec_space, DeviceView a, DeviceView b, DeviceView c){
     Kokkos::parallel_for("add"+std::to_string(indexName++), Kokkos::RangePolicy<DeviceExecSpace>( exec_space, 0, N), KOKKOS_LAMBDA(const int i) {
-        c(i) = a(i) + b(i);
+        c(i) = a(i) + b(i)+ timeWasting(c(i));
     });
     exec_space.fence();
     return c;
@@ -63,16 +77,12 @@ hpx::future<DeviceView> result_future;
 hpx::future<DeviceView> z_device_scaled_future;
 hpx::future<DeviceMirrorView> z_;
 hpx::future<void> copy_future;
+double alpha = 2.0;
 void tasking(auto partitionSpaces, DeviceView &u, DeviceMirrorView &z, DeviceView &w, DeviceView &t, DeviceView &z_device_scaled, DeviceView &result_device){
-        double alpha = 2.0;
+        
 
         hpx::promise<DeviceView> p;
-        z_future = hpx::make_ready_future(z);
-        alpha_future = hpx::make_ready_future(alpha);
-        u_future = hpx::make_ready_future(u);
-        w_future = hpx::make_ready_future(w);
-        t_future = hpx::make_ready_future(t);
-        result_future = hpx::make_ready_future(result_device);
+        
         z_device_scaled_future = p.get_future();
         
 
@@ -110,7 +120,8 @@ void totalKernel(DeviceView &z_totalKernel, DeviceView &u_totalKernel, DeviceVie
         z_totalKernel(i) = a; 
         u_totalKernel(i) = b;
         w_totalKernel(i) = c;
-        out_totalKernel(i) = alpha * z_totalKernel(i) + u_totalKernel(i) + w_totalKernel(i);
+        out_totalKernel(i) = alpha * z_totalKernel(i) + u_totalKernel(i) + w_totalKernel(i)+ timeWasting(out_totalKernel(i));
+        
     });
     Kokkos::fence();
     Kokkos::deep_copy(z_totalKernel_mirror, out_totalKernel);
@@ -125,7 +136,7 @@ void serialKernels(DeviceView &z_serialKernels, DeviceView &u_serialKernels, Dev
     double alpha = 2.0;
 
     Kokkos::parallel_for("fill z", Kokkos::RangePolicy<DeviceExecSpace>(0, N), KOKKOS_LAMBDA (int i) {
-        z_serialKernels(i)  = a;
+        z_serialKernels(i)  = a+ timeWasting(z_serialKernels(i));
     });
     Kokkos::fence();
 
@@ -162,8 +173,8 @@ int hpx_main(int argc, char* argv[]) {
     std::cout << "Host execution space: " << HostExecSpace::name() << "\n";
     std::cout << "Device execution space: " << DeviceExecSpace::name() << "\n\n";
 
-    int Ns = 100;
-    int nwarm = 10;
+    int Ns = 1;
+    int nwarm = 1;
 
     {
         DeviceView u("u", N);
@@ -175,12 +186,24 @@ int hpx_main(int argc, char* argv[]) {
         auto partitionSpaces = Kokkos::Experimental::partition_space(DeviceExecSpace(), std::vector<int>( 4, 1));
 
         std::vector<double> times(Ns,0.0);
-        for(int j = 0; j < nwarm; j++)
+        for(int j = 0; j < nwarm; j++){
+            z_future = hpx::make_ready_future(z);
+            alpha_future = hpx::make_ready_future(alpha);
+            u_future = hpx::make_ready_future(u);
+            w_future = hpx::make_ready_future(w);
+            t_future = hpx::make_ready_future(t);
+            result_future = hpx::make_ready_future(result_device);
             tasking( partitionSpaces, u, z, w, t, z_device_scaled, result_device);
-
+        }
 
         Kokkos::Timer timer;
         for(int j = 0; j < Ns; j++){
+            z_future = hpx::make_ready_future(z);
+            alpha_future = hpx::make_ready_future(alpha);
+            u_future = hpx::make_ready_future(u);
+            w_future = hpx::make_ready_future(w);
+            t_future = hpx::make_ready_future(t);
+            result_future = hpx::make_ready_future(result_device);
             timer.reset();
             tasking( partitionSpaces, u, z, w, t, z_device_scaled, result_device);
             times[j] += timer.seconds();
@@ -188,6 +211,7 @@ int hpx_main(int argc, char* argv[]) {
          
         double min_time = *std::min_element(times.begin(), times.end());
         std::cout << "Tasking: " << std::endl;
+        std::cout << "Time: " << min_time << " seconds." << std::endl;
         std::cout << "Maximum Effective Bandwidth: " << 4 * sizeof(double) * N / 1e9/ min_time << " GB/sec." << std::endl;
     }
 
@@ -210,6 +234,7 @@ int hpx_main(int argc, char* argv[]) {
          
         double min_time = *std::min_element(times.begin(), times.end());
         std::cout << std::endl << "Total kernel: " << std::endl;
+        std::cout << "Time: " << min_time << " seconds." << std::endl;
         std::cout << "Maximum Effective Bandwidth: " << 4 * sizeof(double) * N / 1e9/ min_time << " GB/sec." << std::endl;
     }
 
@@ -234,6 +259,7 @@ int hpx_main(int argc, char* argv[]) {
          
         double min_time = *std::min_element(times.begin(), times.end());
         std::cout << std::endl << "Serial kernels: " << std::endl;
+        std::cout << "Time: " << min_time << " seconds." << std::endl;
         std::cout << "Maximum Effective Bandwidth: " << 4 * sizeof(double) * N / 1e9/ min_time << " GB/sec." << std::endl;
     }
 

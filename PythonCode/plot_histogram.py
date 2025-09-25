@@ -1,45 +1,40 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
-import sys
 
-# Run with: python plot_histogram.py thread_counts_openmp.txt
+input_filename_hpx = 'thread_counts_hpx.txt'
+input_filename_openmp = 'thread_counts_openmp.txt'
+plot_title = 'Distribution of Active Threads: HPX vs. OpenMP'
+output_filename = 'thread_histogram_frequency_comparison.png'
 
-# --- Configuration ---
-# Get the input filename from the command line argument.
-input_filename = sys.argv[1] if len(sys.argv) > 1 else 'thread_counts.txt'
-
-# The title of your plot.
-plot_title = 'Distribution of Active Threads'
-
-# The filename for the saved image.
-output_filename = 'thread_histogram.png'
-
-# --- Script Logic ---
 try:
-    # Load the data from your text file.
-    data = np.loadtxt(input_filename, dtype=int)
-    print(f"📈 Successfully loaded {len(data)} data points from '{input_filename}'.")
+    data_hpx = np.loadtxt(input_filename_hpx, dtype=int)
+    print(f"📈 Successfully loaded {len(data_hpx)} data points from '{input_filename_hpx}'.")
 
-    # Set a nice visual style for the plot.
+    data_openmp = np.loadtxt(input_filename_openmp, dtype=int)
+    print(f"📈 Successfully loaded {len(data_openmp)} data points from '{input_filename_openmp}'.")
+
     sns.set_theme(style="whitegrid")
+    plt.figure(figsize=(12, 7))
 
-    # Create the plot figure.
-    plt.figure(figsize=(10, 6))
+    # We will use a higher bin count for more detail
+    number_of_bins = 40
 
-    # Create the histogram using seaborn.
-    sns.histplot(data, kde=True, bins=30, color='skyblue', edgecolor='black')
+    # Plot the OpenMP data as a standard, semi-transparent histogram
+    sns.histplot(data_openmp, bins=number_of_bins, color='salmon', alpha=0.6, label='OpenMP')
 
-    # Add labels and a title for clarity.
+    # Plot the HPX data as an outline ("step") on top, with a thicker line
+    sns.histplot(data_hpx, bins=number_of_bins, color='skyblue', label='HPX', element='step', linewidth=2)
+
+    plt.legend()
     plt.xlabel('Number of Active OS-Level Threads')
     plt.ylabel('Frequency (Number of Samples)')
     plt.title(plot_title)
 
-    # Save the plot to a file.
     plt.savefig(output_filename, dpi=300)
     print(f"✅ Plot saved successfully as '{output_filename}'")
 
-except FileNotFoundError:
-    print(f"🛑 Error: The file '{input_filename}' was not found.")
+except FileNotFoundError as e:
+    print(f"🛑 Error: The file '{e.filename}' was not found.")
 except Exception as e:
     print(f"An error occurred: {e}")
