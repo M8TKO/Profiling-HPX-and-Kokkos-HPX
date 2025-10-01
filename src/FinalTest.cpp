@@ -1,5 +1,6 @@
 #include <hpx/init.hpp>
 #include <hpx/future.hpp>
+#include <hpx/hpx.hpp>
 #include <cstdint>
 #include <Kokkos_Core.hpp>
 #include <iostream>
@@ -75,8 +76,9 @@ void tasking(auto partitionSpaces, DeviceView &u, DeviceMirrorView &z, DeviceVie
         result_future = hpx::make_ready_future(result_device);
         z_device_scaled_future = p.get_future();
         
-
+        Kokkos::Profiling::pushRegion("foo");
         z_future = hpx::dataflow( hpx::unwrapping(fillHost), z_future);
+        Kokkos::Profiling::popRegion();
         z_ = hpx::dataflow( hpx::unwrapping(scalarHost), z_future, alpha_future);
 
         z_.then([z_device_scaled, &p](hpx::future<DeviceMirrorView> scaled_z_future){
@@ -157,85 +159,96 @@ void serialKernels(DeviceView &z_serialKernels, DeviceView &u_serialKernels, Dev
     Kokkos::deep_copy(z_serialKernels_mirror, out_serialKernels);
 }
 
+int fun(int x){ 
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));    
+    return x+1;
+}
+
 int hpx_main(int argc, char* argv[]) {
     
     std::cout << "Host execution space: " << HostExecSpace::name() << "\n";
     std::cout << "Device execution space: " << DeviceExecSpace::name() << "\n\n";
 
-    int Ns = 100;
-    int nwarm = 10;
+    int Ns = 1;
+    int nwarm = 0;
 
-    {
-        DeviceView u("u", N);
-        DeviceMirrorView z = Kokkos::create_mirror_view(u);
-        DeviceView w("w", N);
-        DeviceView t("t", N);
-        DeviceView z_device_scaled = Kokkos::create_mirror_view( DeviceExecSpace(), z);
-        DeviceView result_device = Kokkos::create_mirror_view( DeviceExecSpace(), z);    
-        auto partitionSpaces = Kokkos::Experimental::partition_space(DeviceExecSpace(), std::vector<int>( 4, 1));
-
-        std::vector<double> times(Ns,0.0);
-        for(int j = 0; j < nwarm; j++)
-            tasking( partitionSpaces, u, z, w, t, z_device_scaled, result_device);
-
-
-        Kokkos::Timer timer;
-        for(int j = 0; j < Ns; j++){
-            timer.reset();
-            tasking( partitionSpaces, u, z, w, t, z_device_scaled, result_device);
-            times[j] += timer.seconds();
-        }
-         
-        double min_time = *std::min_element(times.begin(), times.end());
-        std::cout << "Tasking: " << std::endl;
-        std::cout << "Maximum Effective Bandwidth: " << 4 * sizeof(double) * N / 1e9/ min_time << " GB/sec." << std::endl;
+    int temp = 0;
+    hpx::future<int> f = hpx::make_ready_future(temp);
+    for(int i = 0; i < 100; i++){
+        f = hpx::dataflow(hpx::unwrapping(fun), f);
     }
+    f.get();
+    // {
+    //     DeviceView u("u", N);
+    //     DeviceMirrorView z = Kokkos::create_mirror_view(u);
+    //     DeviceView w("w", N);
+    //     DeviceView t("t", N);
+    //     DeviceView z_device_scaled = Kokkos::create_mirror_view( DeviceExecSpace(), z);
+    //     DeviceView result_device = Kokkos::create_mirror_view( DeviceExecSpace(), z);    
+    //     auto partitionSpaces = Kokkos::Experimental::partition_space(DeviceExecSpace(), std::vector<int>( 4, 1));
 
-    {
-        DeviceView z_totalKernel("z", N);
-        DeviceView u_totalKernel("u", N);
-        DeviceView w_totalKernel("w", N);
-        DeviceView out_totalKernel("out", N);
-        DeviceMirrorView z_totalKernel_mirror = Kokkos::create_mirror_view(out_totalKernel);
-        std::vector<double> times(Ns,0.0);
-        for(int j = 0; j < nwarm; j++)
-            totalKernel(z_totalKernel, u_totalKernel, w_totalKernel, out_totalKernel, z_totalKernel_mirror);
+    //     std::vector<double> times(Ns,0.0);
+    //     for(int j = 0; j < nwarm; j++)
+    //         tasking( partitionSpaces, u, z, w, t, z_device_scaled, result_device);
 
-        Kokkos::Timer timer;
-        for(int j = 0; j < Ns; j++){
-            timer.reset();
-            totalKernel(z_totalKernel, u_totalKernel, w_totalKernel, out_totalKernel, z_totalKernel_mirror);
-            times[j] += timer.seconds();
-        }
+
+    //     Kokkos::Timer timer;
+    //     for(int j = 0; j < Ns; j++){
+    //         timer.reset();
+    //         tasking( partitionSpaces, u, z, w, t, z_device_scaled, result_device);
+    //         times[j] += timer.seconds();
+    //     }
          
-        double min_time = *std::min_element(times.begin(), times.end());
-        std::cout << std::endl << "Total kernel: " << std::endl;
-        std::cout << "Maximum Effective Bandwidth: " << 4 * sizeof(double) * N / 1e9/ min_time << " GB/sec." << std::endl;
-    }
+    //     double min_time = *std::min_element(times.begin(), times.end());
+    //     std::cout << "Tasking: " << std::endl;
+    //     std::cout << "Maximum Effective Bandwidth: " << 4 * sizeof(double) * N / 1e9/ min_time << " GB/sec." << std::endl;
+    // }
 
-    {
-        DeviceView z_serialKernels("z", N);
-        DeviceView u_serialKernels("u", N);
-        DeviceView w_serialKernels("w", N); 
-        DeviceView t_serialKernels("t", N);
-        DeviceView y_serialKernels("y", N);
-        DeviceView out_serialKernels("out", N);
+    // {
+    //     DeviceView z_totalKernel("z", N);
+    //     DeviceView u_totalKernel("u", N);
+    //     DeviceView w_totalKernel("w", N);
+    //     DeviceView out_totalKernel("out", N);
+    //     DeviceMirrorView z_totalKernel_mirror = Kokkos::create_mirror_view(out_totalKernel);
+    //     std::vector<double> times(Ns,0.0);
+    //     for(int j = 0; j < nwarm; j++)
+    //         totalKernel(z_totalKernel, u_totalKernel, w_totalKernel, out_totalKernel, z_totalKernel_mirror);
 
-        std::vector<double> times(Ns,0.0);
-        for(int j = 0; j < nwarm; j++)
-            serialKernels(z_serialKernels, u_serialKernels, w_serialKernels, t_serialKernels, y_serialKernels, out_serialKernels);
-
-        Kokkos::Timer timer;
-        for(int j = 0; j < Ns; j++){
-            timer.reset();
-            serialKernels(z_serialKernels, u_serialKernels, w_serialKernels, t_serialKernels, y_serialKernels, out_serialKernels);
-            times[j] += timer.seconds();
-        }
+    //     Kokkos::Timer timer;
+    //     for(int j = 0; j < Ns; j++){
+    //         timer.reset();
+    //         totalKernel(z_totalKernel, u_totalKernel, w_totalKernel, out_totalKernel, z_totalKernel_mirror);
+    //         times[j] += timer.seconds();
+    //     }
          
-        double min_time = *std::min_element(times.begin(), times.end());
-        std::cout << std::endl << "Serial kernels: " << std::endl;
-        std::cout << "Maximum Effective Bandwidth: " << 4 * sizeof(double) * N / 1e9/ min_time << " GB/sec." << std::endl;
-    }
+    //     double min_time = *std::min_element(times.begin(), times.end());
+    //     std::cout << std::endl << "Total kernel: " << std::endl;
+    //     std::cout << "Maximum Effective Bandwidth: " << 4 * sizeof(double) * N / 1e9/ min_time << " GB/sec." << std::endl;
+    // }
+
+    // {
+    //     DeviceView z_serialKernels("z", N);
+    //     DeviceView u_serialKernels("u", N);
+    //     DeviceView w_serialKernels("w", N); 
+    //     DeviceView t_serialKernels("t", N);
+    //     DeviceView y_serialKernels("y", N);
+    //     DeviceView out_serialKernels("out", N);
+
+    //     std::vector<double> times(Ns,0.0);
+    //     for(int j = 0; j < nwarm; j++)
+    //         serialKernels(z_serialKernels, u_serialKernels, w_serialKernels, t_serialKernels, y_serialKernels, out_serialKernels);
+
+    //     Kokkos::Timer timer;
+    //     for(int j = 0; j < Ns; j++){
+    //         timer.reset();
+    //         serialKernels(z_serialKernels, u_serialKernels, w_serialKernels, t_serialKernels, y_serialKernels, out_serialKernels);
+    //         times[j] += timer.seconds();
+    //     }
+         
+    //     double min_time = *std::min_element(times.begin(), times.end());
+    //     std::cout << std::endl << "Serial kernels: " << std::endl;
+    //     std::cout << "Maximum Effective Bandwidth: " << 4 * sizeof(double) * N / 1e9/ min_time << " GB/sec." << std::endl;
+    // }
 
     Kokkos::finalize();
     if( HostExecSpace::name() != "HPX" )

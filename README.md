@@ -1,7 +1,33 @@
-## Benchmark Results: Maximum Effective Bandwidth (GB/sec)
+## Benchmark Results: Maximum Effective Bandwidth (GB/s) 
 
 | Kernel Type | OpenMP + CUDA | HPX + CUDA |
 | :--- | :---: | :---: |
-| **Tasking** | 1.450 | 7.373 |
-| **Total Kernel** | 23.395 | 22.140 |
-| **Serial Kernels** | 13.377 | 13.141 |
+| **Tasking** | 1.45 GB/s | **7.37 GB/s** |
+| **Total Kernel** | 23.40 GB/s | 22.14 GB/s |
+| **Serial Kernels** | 13.38 GB/s | 13.14 GB/s |
+
+-----
+
+## HPX Tasking and Kokkos HPX Backend  
+We are suspecting that `hpx::dataflow` might spawn each thread for each call (or sometimes at least).
+
+
+The following code creates 100 sequential tasks. Using GDB, 25 `pthread_create` calls were made. New OS threads are not spawned for each task.
+
+```cpp
+int fun(int x) {
+    // Simulate work
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    return x + 1;
+}
+
+// --- In main ---
+int temp = 0;
+hpx::future<int> f = hpx::make_ready_future(temp);
+
+for (int i = 0; i < 100; i++) {
+    f = hpx::dataflow(hpx::unwrapping(fun), f);
+}
+
+f.get();
+```
