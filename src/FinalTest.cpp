@@ -54,6 +54,7 @@ DeviceView addDevice(DeviceExecSpace exec_space, DeviceView a, DeviceView b, Dev
     return c;
 }
 
+
 hpx::future<DeviceMirrorView> z_future;
 hpx::future<double> alpha_future;
 hpx::future<DeviceView> u_future;
@@ -64,42 +65,74 @@ hpx::future<DeviceView> result_future;
 hpx::future<DeviceView> z_device_scaled_future;
 hpx::future<DeviceMirrorView> z_;
 hpx::future<void> copy_future;
-void tasking(auto partitionSpaces, DeviceView &u, DeviceMirrorView &z, DeviceView &w, DeviceView &t, DeviceView &z_device_scaled, DeviceView &result_device){
-        double alpha = 2.0;
 
-        hpx::promise<DeviceView> p;
-        z_future = hpx::make_ready_future(z);
-        alpha_future = hpx::make_ready_future(alpha);
-        u_future = hpx::make_ready_future(u);
-        w_future = hpx::make_ready_future(w);
-        t_future = hpx::make_ready_future(t);
-        result_future = hpx::make_ready_future(result_device);
-        z_device_scaled_future = p.get_future();
-        
-        Kokkos::Profiling::pushRegion("foo");
-        z_future = hpx::dataflow( hpx::unwrapping(fillHost), z_future);
-        Kokkos::Profiling::popRegion();
-        z_ = hpx::dataflow( hpx::unwrapping(scalarHost), z_future, alpha_future);
+void tasking(auto partitionSpaces, DeviceView &u, DeviceMirrorView &z, DeviceView &w, DeviceView &t, DeviceView &z_device_scaled, DeviceView &result_device) {
+    double alpha = 2.0;
+    hpx::promise<DeviceView> p;
 
-        z_.then([z_device_scaled, &p](hpx::future<DeviceMirrorView> scaled_z_future){
-            Kokkos::deep_copy(z_device_scaled, scaled_z_future.get());
+    z_future = hpx::make_ready_future(z);
+    alpha_future = hpx::make_ready_future(alpha);
+    u_future = hpx::make_ready_future(u);
+    w_future = hpx::make_ready_future(w);
+    t_future = hpx::make_ready_future(t);
+    result_future = hpx::make_ready_future(result_device);
+    z_device_scaled_future = p.get_future();
+
+    hpx::future<DeviceMirrorView> filled_z_future = z_future.then(
+        [](hpx::future<DeviceMirrorView> z_fut) {
+            auto result = fillHost(z_fut.get());
+            return result;
+        }
+    );
+
+    z_ = hpx::when_all(filled_z_future, alpha_future).then(
+        [](auto&& f) {
+            auto&& [z_fut, alpha_fut] = f.get();
+            return scalarHost(z_fut.get(), alpha_fut.get());
+        }
+    );
+
+    z_.then(
+        [z_device_scaled, p = std::move(p)](hpx::future<DeviceMirrorView> scaled_z_fut) mutable {
+            Kokkos::deep_copy(z_device_scaled, scaled_z_fut.get());
             p.set_value(DeviceView(z_device_scaled));
-        });
+        }
+    );
 
-        u_future = hpx::dataflow( hpx::unwrapping(fillDevice), partitionSpaces[0], u_future);
-        w_future = hpx::dataflow( hpx::unwrapping(fillDevice), partitionSpaces[1], w_future);
+    hpx::future<DeviceView> filled_u_future = u_future.then(
+        [&partitionSpaces](hpx::future<DeviceView> u_fut) {
+            return fillDevice(partitionSpaces[0], u_fut.get());
+        }
+    );
 
-        t_future = hpx::dataflow( hpx::unwrapping(addDevice), partitionSpaces[2], u_future, w_future, t_future);
+    hpx::future<DeviceView> filled_w_future = w_future.then(
+        [&partitionSpaces](hpx::future<DeviceView> w_fut) {
+            return fillDevice(partitionSpaces[1], w_fut.get());
+        }
+    );
 
-        result_future = hpx::dataflow( hpx::unwrapping(addDevice), partitionSpaces[3], t_future, z_device_scaled_future, result_future);
+    t_future = hpx::when_all(filled_u_future, filled_w_future, t_future).then(
+        [&partitionSpaces](auto&& f) {
+            auto&& [u_fut, w_fut, t_fut] = f.get();
+            return addDevice(partitionSpaces[2], u_fut.get(), w_fut.get(), t_fut.get());
+        }
+    );
 
-        copy_future = result_future.then([&z](hpx::future<DeviceView> result_future){
-            Kokkos::deep_copy(z, result_future.get());
-        });
-        
-        copy_future.wait();
+    result_future = hpx::when_all(t_future, z_device_scaled_future, result_future).then(
+        [&partitionSpaces](auto&& f) {
+            auto&& [t_fut, z_device_fut, result_fut] = f.get();
+            return addDevice(partitionSpaces[3], t_fut.get(), z_device_fut.get(), result_fut.get());
+        }
+    );
+
+    copy_future = result_future.then(
+        [&z](hpx::future<DeviceView> res_fut) {
+            Kokkos::deep_copy(z, res_fut.get());
+        }
+    );
+
+    copy_future.wait();
 }
-
 
 void totalKernel(DeviceView &z_totalKernel, DeviceView &u_totalKernel, DeviceView &w_totalKernel, DeviceView &out_totalKernel, DeviceMirrorView &z_totalKernel_mirror){
     
@@ -169,40 +202,35 @@ int hpx_main(int argc, char* argv[]) {
     std::cout << "Host execution space: " << HostExecSpace::name() << "\n";
     std::cout << "Device execution space: " << DeviceExecSpace::name() << "\n\n";
 
-    int Ns = 1;
-    int nwarm = 0;
-
-    int temp = 0;
-    hpx::future<int> f = hpx::make_ready_future(temp);
-    for(int i = 0; i < 100; i++){
-        f = hpx::dataflow(hpx::unwrapping(fun), f);
-    }
-    f.get();
-    // {
-    //     DeviceView u("u", N);
-    //     DeviceMirrorView z = Kokkos::create_mirror_view(u);
-    //     DeviceView w("w", N);
-    //     DeviceView t("t", N);
-    //     DeviceView z_device_scaled = Kokkos::create_mirror_view( DeviceExecSpace(), z);
-    //     DeviceView result_device = Kokkos::create_mirror_view( DeviceExecSpace(), z);    
-    //     auto partitionSpaces = Kokkos::Experimental::partition_space(DeviceExecSpace(), std::vector<int>( 4, 1));
-
-    //     std::vector<double> times(Ns,0.0);
-    //     for(int j = 0; j < nwarm; j++)
-    //         tasking( partitionSpaces, u, z, w, t, z_device_scaled, result_device);
+    int Ns = 100;
+    int nwarm = 10;
 
 
-    //     Kokkos::Timer timer;
-    //     for(int j = 0; j < Ns; j++){
-    //         timer.reset();
-    //         tasking( partitionSpaces, u, z, w, t, z_device_scaled, result_device);
-    //         times[j] += timer.seconds();
-    //     }
+    {
+        DeviceView u("u", N);
+        DeviceMirrorView z = Kokkos::create_mirror_view(u);
+        DeviceView w("w", N);
+        DeviceView t("t", N);
+        DeviceView z_device_scaled = Kokkos::create_mirror_view( DeviceExecSpace(), z);
+        DeviceView result_device = Kokkos::create_mirror_view( DeviceExecSpace(), z);    
+        auto partitionSpaces = Kokkos::Experimental::partition_space(DeviceExecSpace(), std::vector<int>( 4, 1));
+
+        std::vector<double> times(Ns,0.0);
+        for(int j = 0; j < nwarm; j++)
+            tasking( partitionSpaces, u, z, w, t, z_device_scaled, result_device);
+
+
+        Kokkos::Timer timer;
+        for(int j = 0; j < Ns; j++){
+            timer.reset();
+            tasking( partitionSpaces, u, z, w, t, z_device_scaled, result_device);
+            times[j] += timer.seconds();
+        }
          
-    //     double min_time = *std::min_element(times.begin(), times.end());
-    //     std::cout << "Tasking: " << std::endl;
-    //     std::cout << "Maximum Effective Bandwidth: " << 4 * sizeof(double) * N / 1e9/ min_time << " GB/sec." << std::endl;
-    // }
+        double min_time = *std::min_element(times.begin(), times.end());
+        std::cout << "Tasking: " << std::endl;
+        std::cout << "Maximum Effective Bandwidth: " << 4 * sizeof(double) * N / 1e9/ min_time << " GB/sec." << std::endl;
+    }
 
     // {
     //     DeviceView z_totalKernel("z", N);

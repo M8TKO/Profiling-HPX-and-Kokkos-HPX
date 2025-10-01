@@ -31,3 +31,15 @@ for (int i = 0; i < 100; i++) {
 
 f.get();
 ```
+
+
+
+##  Performance Comparison: `hpx::dataflow` vs. Continuations
+
+This table compares the maximum effective bandwidth of the application when using `hpx::dataflow` versus manually chaining tasks with continuations like `hpx::async` and `.then()`.
+
+| Tasking Approach | Host Execution Space | Device Execution Space | Max. Effective Bandwidth (GB/sec) |
+| :--- | :--- | :--- | :--- |
+| **Using `hpx::dataflow`** | `OpenMP` | `Cuda` | **`1.45`** |
+| **`async` & `.then`** | `OpenMP` | `Cuda` | `1.42446` |
+
