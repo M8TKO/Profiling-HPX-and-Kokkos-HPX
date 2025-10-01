@@ -238,10 +238,18 @@ int hpx_main(int argc, char* argv[]) {
     }
 
     Kokkos::finalize();
-    return hpx::local::finalize();
+    if( HostExecSpace::name() != "HPX" )
+        return hpx::local::finalize();
+    else
+        return 0;
 }
 
 int main(int argc, char* argv[]) {
     Kokkos::initialize(argc, argv);
-    return hpx::local::init(hpx_main, argc, argv);
+
+
+   if( HostExecSpace::name() != "HPX" )
+        return hpx::local::init(hpx_main, argc, argv);
+    else
+        return hpx_main(argc, argv);
 }
